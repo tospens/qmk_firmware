@@ -26,13 +26,21 @@
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
   #define RGBLIGHT_LIMIT_VAL 150
+  #define RGBLIGHT_SLEEP
 #endif
 
 #ifdef ENCODER_ENABLE
-  #define ENCODER_DIRECTION_FLIP
+ // #define ENCODER_DIRECTION_FLIP
   #define ENCODER_RESOLUTION 2
-  #define ENCODER_RESOLUTION_RIGHT 2
+  #define ENCODER_RESOLUTION_RIGHT 4
 #endif
+
+// Allows to use either side as the master. Look at the documentation for info:
+// https://docs.qmk.fm/#/config_options?id=setting-handedness
+#define EE_HANDS
+
+// Allows media codes to properly register in macros and rotary encoder code
+#define TAP_CODE_DELAY 10
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
