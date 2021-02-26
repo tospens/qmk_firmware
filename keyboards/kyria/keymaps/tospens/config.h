@@ -30,10 +30,19 @@
 #endif
 
 #ifdef ENCODER_ENABLE
- // #define ENCODER_DIRECTION_FLIP
+  #define ENCODER_DIRECTION_FLIP
   #define ENCODER_RESOLUTION 2
   #define ENCODER_RESOLUTION_RIGHT 4
 #endif
+
+// Set the layer toggle to only need 2 clicks instead of 5
+#define TAPPING_TOGGLE 2
+
+// The Leader key allows to flexibly assign macros to key sequences.
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 350
+
+#define TAPPING_TERM 200
 
 // Allows to use either side as the master. Look at the documentation for info:
 // https://docs.qmk.fm/#/config_options?id=setting-handedness
