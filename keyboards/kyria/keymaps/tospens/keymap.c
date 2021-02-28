@@ -38,16 +38,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | LCTL   |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | TAB    |   Z  |   X  |   C  |   V  |   B  | CCCV |Raise |  | Del  |Leader|   N  |   M  | ,  < | . >  | /  ? |  - _   |
+ * | TAB    |   Z  |   X  |   C  |   V  |   B  |      | CCCV |  | Del  |Leader|   N  |   M  | ,  < | . >  | /  ? |  - _   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | ADJ  | Alt  |      | Space| Enter|  | Bspc | Space|      | Tab  | Mute |
  *                        | UST  |      | Lower| Shift| Alt  |  |      | Nav  | Raise|      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [QWERTY] = LAYOUT(
-      KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+      KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
       KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_TAB, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_CCCV,   MO(RAISE),  KC_DEL, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_CAPS),
+      KC_TAB,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  XXXXXXX,   KC_CCCV,  KC_DEL, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_CAPS),
               TG(ADJUST), KC_LALT, TT(LOWER), MT(MOD_LSFT, KC_SPC), RALT_T(KC_ENT), KC_BSPC, LT(NAV, KC_SPC), TT(RAISE), KC_LGUI, KC_MUTE
     ),
 /*
@@ -65,10 +65,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [LOWER] = LAYOUT(
-      _______, _______, ALGR(KC_Q), ALGR(KC_L), ALGR(KC_W), _______,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, _______,
-      _______, _______, KC_MPRV,       KC_MPLY,    KC_MNXT, _______,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_COMM, KC_PLUS,
-      _______, _______, KC_BTN1, KC_BTN3, KC_BTN2, _______, _______, _______, _______, _______, KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, ALGR(KC_Q), ALGR(KC_L), ALGR(KC_W), _______,                                     KC_PLUS, KC_7,    KC_8,    KC_9, KC_ASTR, KC_EQL,
+      _______, _______, KC_MPRV,       KC_MPLY,    KC_MNXT, _______,                                     KC_MINS, KC_4,    KC_5,    KC_6, KC_SLSH, KC_COMM,
+      _______, KC_BTN4, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN5, _______, _______, _______, _______,          KC_0,    KC_1,    KC_2,    KC_3, KC_DOT, _______,
+                                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Raise Layer: Symbols
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
- * Navigation Layer
+ * Navigation and Function Keys Layer
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      |      |      |      |                              | PgUp | Home | Up   | End  |      | ScrlLk |
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NAV] = LAYOUT(
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,  _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, KC_SLCK,
       _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,  _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
-      _______, KC_F9,   KC_F10,  KC_F11,  KC_F12, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, KC_F9,   KC_F10,  KC_F11,  KC_F12, _______, _______, _______, _______, _______, KC_BTN4, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN5, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -194,10 +194,13 @@ void matrix_scan_user(void) {
             tap_code16(A(KC_F4));
         }
         SEQ_ONE_KEY(KC_P) { // Invoke Password Manager
-            SEND_STRING(SS_LCTRL(SS_LALT("\\")));
+            SEND_STRING(SS_LCTL(SS_LALT("\\")));
         }
         SEQ_ONE_KEY(KC_S) { // Windows screenshot
             SEND_STRING(SS_LGUI("\nS"));
+        }
+        SEQ_ONE_KEY(KC_M) { // Mute Teams
+            SEND_STRING(SS_LCTL(SS_LSFT("M")));
         }
         SEQ_TWO_KEYS(KC_E, KC_W) { // Email work
             SEND_STRING("tospmo@dsb.dk");
@@ -245,22 +248,22 @@ static void render_status(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("Default\n\n"), false);
             break;
         case LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
+            oled_write_P(PSTR("Lower\n\n"), false);
             break;
         case RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
+            oled_write_P(PSTR("Raise\n\n"), false);
             break;
         case NAV:
-            oled_write_P(PSTR("Navigation\n"), false);
+            oled_write_P(PSTR("Navigation\n\n"), false);
             break;
         case ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
+            oled_write_P(PSTR("Adjust\n\n"), false);
             break;
         default:
-            oled_write_P(PSTR("Undefined\n"), false);
+            oled_write_P(PSTR("Undefined\n\n"), false);
     }
 
     // Host Keyboard LED Status
@@ -358,3 +361,54 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
+
+// Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {18, 1, HSV_PURPLE}     // Light 4 LEDs, starting with LED 12
+);
+// Light LEDs 9 & 10 in blue when keyboard lower layer is active
+const rgblight_segment_t PROGMEM lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 3, 150, 255, 255},
+    {7, 1, 150, 255, 255}
+);
+// Light LEDs 11 & 12 in orange when keyboard raise layer is active
+const rgblight_segment_t PROGMEM raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 3, HSV_RAISE},
+    {17, 1, HSV_RAISE}
+);
+// Light LEDs 13 & 14 in green when keyboard navigation layer is active
+const rgblight_segment_t PROGMEM nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 3, 0, 0, 150},
+    {17, 1, 0, 0, 150}
+);
+// Light LEDs 13 & 14 in green when keyboard adjust layer is active
+const rgblight_segment_t PROGMEM adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {7, 1, HSV_RED}
+);
+
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_capslock_layer,
+    lower_layer,    // Overrides caps lock layer
+    raise_layer,    // Overrides other layers
+    nav_layer,     // Overrides other layers
+    adjust_layer
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = rgb_layers;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, LOWER));
+    rgblight_set_layer_state(2, layer_state_cmp(state, RAISE));
+    rgblight_set_layer_state(3, layer_state_cmp(state, NAV));
+    rgblight_set_layer_state(4, layer_state_cmp(state, ADJUST));
+    return state;
+}
