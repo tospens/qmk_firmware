@@ -25,11 +25,10 @@ SLEEP_LED_ENABLE = yes       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no             # USB Nkey Rollover
 BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
-RGBLIGHT_CUSTOM_DRIVER = yes # RGB code is implemented in lefkeyboards, not qmk base
+RGBLIGHT_CUSTOM_DRIVER = yes # RGB code is implemented in lfkeyboards, not qmk base
 MIDI_ENABLE = no             # MIDI support
 BLUETOOTH_ENABLE = no        # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no            # Audio output on port C6
-FAUXCLICKY_ENABLE = no       # Use buzzer to emulate clicky switches
 UNICODE_ENABLE = no          # Unicode
 TAP_DANCE_ENABLE = no
 
