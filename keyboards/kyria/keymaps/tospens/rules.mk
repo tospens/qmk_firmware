@@ -4,4 +4,13 @@ RGBLIGHT_ENABLE = yes		# Enable keyboard RGB underglow
 LEADER_ENABLE = yes			# Enable the Leader Key feature
 MOUSEKEY_ENABLE = yes		# Enable Mouse Keys
 TAP_DANCE_ENABLE = yes		# Enable Tap Dance
-WPM_ENABLE = yes
+WPM_ENABLE = no
+
+
+PIMORONI_TRACKBALL_ENABLE = yes
+
+ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
+    SRC += pimoroni_trackball.c
+    OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
+    POINTING_DEVICE_ENABLE := yes
+endif

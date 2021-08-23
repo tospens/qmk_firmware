@@ -14,8 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "luna.c"
+//#include "luna.c"
 //#include <stdio.h>
+
+#ifdef PIMORONI_TRACKBALL_ENABLE
+#include "pimoroni_trackball.h"
+#endif
+
+#ifdef POINTING_DEVICE_ENABLE
+#include "pointing_device.h"
+#endif
 
 uint16_t copy_paste_timer;
 
@@ -87,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [QWERTY] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    TD(TD_AA),
       KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                                     KC_H,    KC_J,    KC_K,    KC_L,    TD(TD_AE), TD(TD_OE),
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  KC_LGUI, KC_CCCV,      KC_LEAD, _______,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  KC_LGUI, KC_CCCV,      KC_LEAD, KC_RALT,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                       LGUI(KC_TAB), KC_LCTL, MO(LOWER), KC_SPC, LALT_T(KC_ENT),   KC_ENT, MO(NAV), MO(RAISE), KC_BSPC_DEL, KC_MUTE
     ),
 /*
@@ -212,6 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
+#ifdef RGBLIGHT_ENABLE
 layer_state_t layer_state_set_user(layer_state_t state) {
     //state = update_tri_layer_state(state, LOWER, RAISE, ADJUST);
     rgblight_set_layer_state(1, layer_state_cmp(state, LOWER));
@@ -221,6 +230,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(5, layer_state_cmp(state, NUMPAD));
     return state;
 }
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -388,7 +398,7 @@ static void render_tospens_logo(void) {
     oled_write_raw_P(tospens_logo, sizeof(tospens_logo));
 }
 
-static void render_qmk_logo(void) {
+/* static void render_qmk_logo(void) {
   static const char PROGMEM qmk_logo[] = {
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
     0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
@@ -447,7 +457,7 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)    ? PSTR("NUMLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK)   ? PSTR("CAPLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
-}
+} */
 
 static void render_logo(void) {
     render_tospens_logo();
@@ -457,12 +467,56 @@ static void render_logo(void) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        //render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
 
     } else {
         render_logo();
-        animate_luna();
+        //animate_luna();
     }
+}
+#endif
+
+#ifdef PIMORONI_TRACKBALL_ENABLE
+void pointing_device_task() {
+    report_mouse_t mouse_report = pointing_device_get_report();
+    if (is_keyboard_master()) {
+		bool fast_scroll = (get_highest_layer(layer_state) == LOWER);
+		process_mouse(&mouse_report, fast_scroll);
+    }
+
+	if (host_keyboard_led_state().caps_lock) {
+		trackball_set_rgbw(150,0,0,0);
+	}
+	else {
+		switch (get_highest_layer(layer_state)) {
+			case QWERTY:
+				 trackball_set_rgbw(0,0,0,150);
+				break;
+			case RAISE:
+				trackball_set_rgbw(255,165,0,0);
+				break;
+			case LOWER:
+				trackball_set_rgbw(0,0,150,0);
+				break;
+			case NAV:
+				 trackball_set_rgbw(130,0,170,0);
+				break;
+			case ADJUST:
+				 trackball_set_rgbw(0,150,0,0);
+				break;
+			default:
+				trackball_set_rgbw(0,0,0,150);
+		}
+    }
+
+    if (layer_state_is(NAV)) {
+        trackball_set_scrolling(true);
+    } else {
+        trackball_set_scrolling(false);
+    }
+
+    pointing_device_set_report(mouse_report);
+    pointing_device_send();
 }
 #endif
 
