@@ -53,8 +53,7 @@ enum layers {
     LOWER,
     RAISE,
     NAV,
-    ADJUST,
-    NUMPAD
+    ADJUST
 };
 
 enum custom_keycodes {
@@ -73,8 +72,7 @@ enum {
     TD_AE,
     TD_OE,
     TD_AA,
-    TD_COPY_PASTE_APP,
-    TD_Y_NUMPAD,
+    TD_COPY_PASTE_APP
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -178,26 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  TG(ADJUST), _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG
     ),
-/*
- * Numpad Layer
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              |   Y  |  5   |  8   |  9   |  +   |   *    |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |   =  |  4   |  5   |  6   |  -   |   /    |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      |   0  |  1   |  2   |  3   |  ,   |   ,    |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-    [NUMPAD] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                      TD(TD_Y_NUMPAD), KC_P7, KC_P8, KC_P9, KC_PPLS, KC_PAST,
-      _______, _______, _______, _______, _______, _______,                                      KC_EQL,          KC_P4, KC_P5, KC_P6, KC_PMNS, KC_PSLS,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_P0,           KC_P1, KC_P2, KC_P3, KC_COMM, KC_PDOT,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NLCK
-    ),
+
 // /*
 //  * Layer template
 //  *
@@ -227,7 +206,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, RAISE));
     rgblight_set_layer_state(3, layer_state_cmp(state, NAV));
     rgblight_set_layer_state(4, layer_state_cmp(state, ADJUST));
-    rgblight_set_layer_state(5, layer_state_cmp(state, NUMPAD));
     return state;
 }
 #endif
@@ -443,9 +421,6 @@ static void render_status(void) {
         case ADJUST:
             oled_write_P(PSTR("Adjust"), false);
             break;
-        case NUMPAD:
-            oled_write_P(PSTR("Numpad"), false);
-            break;
         default:
             oled_write_P(PSTR("Undefined"), false);
     }
@@ -521,7 +496,7 @@ void pointing_device_task() {
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (biton32(layer_state)) {
             case QWERTY:
@@ -537,10 +512,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 // Browser tabbing
                 if (clockwise) {
                     tap_code16(C(KC_TAB));
-                    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 } else {
                     tap_code16(S(C(KC_TAB)));
-                    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 }
                 break;
             case ADJUST: // Underglow color
@@ -559,10 +532,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     }
                     alt_tab_timer = timer_read();
                     tap_code16(KC_TAB);
-                    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 } else {
                     tap_code16(S(KC_TAB));
-                    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 }
                 break;
         }
@@ -579,10 +550,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             case LOWER: // Scrolling horizontally by word
                 if (clockwise) {
                     tap_code16(C(KC_RGHT));
-                    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 } else {
                     tap_code16(C(KC_LEFT));
-                    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 }
                 break;
             case ADJUST: // Underglow brightness
@@ -603,6 +572,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
         }
     }
+    return true;
 }
 #endif
 
@@ -667,41 +637,6 @@ void copy_paste_app_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 // END: Copy, Paste, Apps
 
-// BEGIN: Y, NUMPAD
-static tap y_numpad_tap_state = {
-  .is_press_action = true,
-  .state = 0
-};
-
-void y_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
-  y_numpad_tap_state.state = cur_dance(state);
-  switch (y_numpad_tap_state.state) {
-    case SINGLE_TAP:
-      tap_code(KC_Y);
-      break;
-    case SINGLE_HOLD:
-      register_code16(KC_Y);
-      break;
-    case DOUBLE_TAP:
-      if (layer_state_is(NUMPAD)) {
-        layer_off(NUMPAD);
-      } else {
-        layer_on(NUMPAD);
-      }
-      break;
-  }
-}
-
-void y_numpad_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (y_numpad_tap_state.state) {
-    case SINGLE_HOLD:
-      unregister_code16(KC_Y);
-      break;
-  }
-  y_numpad_tap_state.state = 0;
-}
-// END: Y, NUMPAD
-
 //// END: Advanced Tap Dances
 
 
@@ -713,7 +648,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // Advanced Tap Dances
    //[TD_COPY_PASTE_APP] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, copy_paste_app_finished, copy_paste_app_reset, 300),
-    [TD_Y_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, y_numpad_finished, y_numpad_reset, 300),
 };
 
 // Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
@@ -739,10 +673,7 @@ const rgblight_segment_t PROGMEM nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {7, 1, HSV_MAGENTA}
 );
-const rgblight_segment_t PROGMEM numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 3, HSV_BLUE},
-    {17, 1, HSV_BLUE}
-);
+
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -750,8 +681,7 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     lower_layer,    // Overrides caps lock layer
     raise_layer,    // Overrides other layers
     nav_layer,     // Overrides other layers
-    adjust_layer,
-    numpad_layer
+    adjust_layer
 );
 
 void keyboard_post_init_user(void) {

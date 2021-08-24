@@ -15,6 +15,7 @@
 			"type_traits": "c",
 			"utility": "c",
 			"ranges": "c"
-		}
+		},
+		"git.ignoreLimitWarning": true
 	}
 }
