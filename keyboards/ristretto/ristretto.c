@@ -14,8 +14,8 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#include "ristretto.h"
-
+//#include "ristretto.h"
+/*
 enum layers {
 	_BASE,
 	_RAISE,
@@ -65,3 +65,4 @@ bool oled_task_kb(void) {
 }
 
 #endif
+*/
