@@ -25,14 +25,17 @@ static uint16_t held_shift = 0;
 enum combos {
     ZX_UNDO,
     CV_REDO,
+    QW_EXIT
 };
 
 const uint16_t PROGMEM undo_combo[]  = { KC_Z, KC_X, COMBO_END };
 const uint16_t PROGMEM redo_combo[] = { KC_C, KC_V, COMBO_END };
+const uint16_t PROGMEM exit_combo[] = { KC_Q, KC_W, COMBO_END };
 
 combo_t key_combos[COMBO_COUNT] = {
-    [ZX_UNDO]  = COMBO(undo_combo, LCTL(KC_Z)),
+    [ZX_UNDO] = COMBO(undo_combo, LCTL(KC_Z)),
     [CV_REDO] = COMBO(redo_combo, LCTL(KC_Y)),
+    [QW_EXIT] = COMBO(exit_combo, LALT(KC_F4))
 };
 #endif
 
