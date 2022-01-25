@@ -15,11 +15,16 @@
  */
 #include QMK_KEYBOARD_H
 
+
+// ONE KEY COPY-PASTE
 uint16_t copy_paste_timer;
 
 // SMART BACKSPACE DELETE
 bool shift_held = false;
 static uint16_t held_shift = 0;
+
+// SUPER ALT-TAB
+bool is_alt_tab_active = false;
 
 #ifdef COMBO_ENABLE
 enum combos {
@@ -28,7 +33,7 @@ enum combos {
     QW_EXIT
 };
 
-const uint16_t PROGMEM undo_combo[]  = { KC_Z, KC_X, COMBO_END };
+const uint16_t PROGMEM undo_combo[] = { KC_Z, KC_X, COMBO_END };
 const uint16_t PROGMEM redo_combo[] = { KC_C, KC_V, COMBO_END };
 const uint16_t PROGMEM exit_combo[] = { KC_Q, KC_W, COMBO_END };
 
@@ -62,6 +67,7 @@ enum custom_keycodes {
     M_LRABR,  // <|>
     M_DQUOT,  // '|'
     KC_BSPC_DEL, // Smart Backspace Delete
+    ALT_TAB, // Super Alt-Tab
 };
 
 
@@ -70,19 +76,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,     KC_I,    KC_O,   KC_P,  TD(TD_AA),
       KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,     KC_K,    KC_L, TD(TD_AE), TD(TD_OE),
      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,  KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
-     KC_CCCV, KC_LALT, KC_LGUI, KC_LCTL,   MO(LOWER),  KC_SPC,  LT(SYMBOL, KC_ENT),   MO(RAISE),  KC_BSPC_DEL, KC_RGUI, KC_RALT, KC_LEAD
+     KC_CCCV, KC_LALT, KC_LGUI, KC_LCTL, MO(LOWER),  KC_SPC,  KC_ENT, MO(RAISE),  KC_BSPC_DEL, KC_RGUI, KC_RALT, KC_LEAD
   ),
 
 [LOWER] = LAYOUT(
      _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,    KC_F8,    KC_F9,    KC_F10, _______,
-     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_F11, KC_F12, _______,   _______,  _______, _______, _______,
+     _______, ALT_TAB, KC_MPRV, KC_MPLY, KC_MNXT, KC_F11, KC_F12, KC_VOLU, KC_MUTE, KC_VOLD, _______, _______,
      _______, SGUI(KC_LEFT), LGUI(KC_LEFT), LGUI(KC_UP), LGUI(KC_RGHT), SGUI(KC_RIGHT), _______, _______, _______, _______, _______, _______,
      _______, _______, _______, _______,  _______, _______, _______,   _______, _______, _______, _______, _______
   ),
 
 [RAISE] = LAYOUT(
      _______, KC_1, 	KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-     _______, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, _______,
+     _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, _______,
      _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______,
      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
@@ -95,9 +101,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-//layer_state_t layer_state_set_user(layer_state_t state) {
-//  return update_tri_layer_state(state, LOWER, RAISE, SYMBOL);
-//}
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, LOWER, RAISE, SYMBOL);
+    // Super Alt-Tab
+    if (is_alt_tab_active) {
+        unregister_code(KC_LALT);
+        is_alt_tab_active = false;
+    }
+    return state;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -134,7 +146,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-
+        case ALT_TAB: // super alt tab macro
+            if (record->event.pressed) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
+            return false;
         case M_LRPRN:
         if (record->event.pressed) {
             SEND_STRING("()" SS_TAP(X_LEFT));
