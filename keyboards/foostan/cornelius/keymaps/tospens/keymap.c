@@ -30,17 +30,20 @@ bool is_alt_tab_active = false;
 enum combos {
     ZX_UNDO,
     CV_REDO,
-    QW_EXIT
+    QW_EXIT,
+    AS_RUN
 };
 
 const uint16_t PROGMEM undo_combo[] = { KC_Z, KC_X, COMBO_END };
 const uint16_t PROGMEM redo_combo[] = { KC_C, KC_V, COMBO_END };
 const uint16_t PROGMEM exit_combo[] = { KC_Q, KC_W, COMBO_END };
+const uint16_t PROGMEM  run_combo[] = { KC_A, KC_S, COMBO_END };
 
 combo_t key_combos[COMBO_COUNT] = {
     [ZX_UNDO] = COMBO(undo_combo, LCTL(KC_Z)),
     [CV_REDO] = COMBO(redo_combo, LCTL(KC_Y)),
-    [QW_EXIT] = COMBO(exit_combo, LALT(KC_F4))
+    [QW_EXIT] = COMBO(exit_combo, LALT(KC_F4)),
+    [AS_RUN]  = COMBO(run_combo,  LALT(KC_SPC))
 };
 #endif
 
@@ -88,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [RAISE] = LAYOUT(
      _______, KC_1, 	KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-     _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, _______,
+     _______, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, _______,
      _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______,
      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),

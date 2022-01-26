@@ -20,5 +20,5 @@
 #define LEADER_TIMEOUT 350
 
 #ifdef COMBO_ENABLE
-  #define COMBO_COUNT 3
+  #define COMBO_COUNT 4
 #endif
