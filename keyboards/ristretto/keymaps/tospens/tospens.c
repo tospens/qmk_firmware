@@ -18,9 +18,10 @@
 
 enum layers {
 	BASE,
+    GAME,
 	RAISE,
 	LOWER,
-	GAME,
+	NUM,
     SYMBOL
 };
 
@@ -168,14 +169,17 @@ bool oled_task_user(void) {
 		case BASE:
 			oled_write_P(PSTR("BASE "), false);
 			break;
+		case GAME:
+			oled_write_P(PSTR("GAME "), false);
+			break;
 		case LOWER:
 			oled_write_P(PSTR("LOWER"), false);
 			break;
 		case RAISE:
 			oled_write_P(PSTR("RAISE"), false);
 			break;
-		case GAME:
-			oled_write_P(PSTR("GAME "), false);
+		case NUM:
+			oled_write_P(PSTR("NUM  "), false);
 			break;
 		case SYMBOL:
 			oled_write_P(PSTR("SYMBL"), false);
