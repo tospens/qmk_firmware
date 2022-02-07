@@ -31,6 +31,30 @@ uint16_t copy_paste_timer;
 bool shift_held = false;
 static uint16_t held_shift = 0;
 
+// SUPER ALT-TAB
+bool is_alt_tab_active = false;
+
+#ifdef COMBO_ENABLE
+enum combos {
+    ZX_UNDO,
+    XC_REDO,
+    QW_EXIT,
+    SD_RUN
+};
+
+const uint16_t PROGMEM undo_combo[] = { KC_Z, KC_X, COMBO_END };
+const uint16_t PROGMEM redo_combo[] = { KC_X, KC_C, COMBO_END };
+const uint16_t PROGMEM exit_combo[] = { KC_Q, KC_W, COMBO_END };
+const uint16_t PROGMEM  run_combo[] = { KC_S, KC_D, COMBO_END };
+
+combo_t key_combos[COMBO_COUNT] = {
+    [ZX_UNDO] = COMBO(undo_combo, LCTL(KC_Z)),
+    [XC_REDO] = COMBO(redo_combo, LCTL(KC_Y)),
+    [QW_EXIT] = COMBO(exit_combo, LALT(KC_F4)),
+    [SD_RUN]  = COMBO(run_combo,  LALT(KC_SPC))
+};
+#endif
+
 enum custom_keycodes {
     KC_CCCV = SAFE_RANGE,
     // Macros, where | is the cursor
@@ -40,6 +64,7 @@ enum custom_keycodes {
     M_LRABR,  // <|>
     M_DQUOT,  // '|'
     KC_BSPC_DEL, // Smart Backspace Delete
+    ALT_TAB, // Super Alt-Tab
 };
 
 // Tap Dance declarations
@@ -50,7 +75,29 @@ enum {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, LOWER, RAISE, SYMBOL);
+  state = update_tri_layer_state(state, LOWER, RAISE, SYMBOL);
+
+  // Super Alt-Tab
+    if (is_alt_tab_active) {
+        unregister_code(KC_LALT);
+        is_alt_tab_active = false;
+    }
+
+  combo_enable(); // Enable combos by default
+  switch (get_highest_layer(layer_state))
+  {
+  case BASE:
+      break;
+  case GAME:
+    combo_disable();
+      break;
+  case NUM:
+    combo_disable();
+      break;
+  default:
+      break;
+  }
+  return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -88,7 +135,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-
+        case ALT_TAB: // super alt tab macro
+            if (record->event.pressed) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
+            return false;
         case M_LRPRN:
         if (record->event.pressed) {
             SEND_STRING("()" SS_TAP(X_LEFT));

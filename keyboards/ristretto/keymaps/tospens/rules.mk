@@ -16,3 +16,4 @@ OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 WAIT_FOR_USB = yes
 TAP_DANCE_ENABLE = yes		# Enable Tap Dance
+COMBO_ENABLE = yes          # Enable Combo
