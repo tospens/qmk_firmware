@@ -45,6 +45,10 @@
   #define ENCODER_RESOLUTION_RIGHT 4
 #endif
 
+#ifdef COMBO_ENABLE
+  #define COMBO_COUNT 2
+#endif
+
 // Set the layer toggle to only need 2 clicks instead of 5
 #define TAPPING_TOGGLE 2
 
@@ -61,6 +65,6 @@
 // Allows media codes to properly register in macros and rotary encoder code
 #define TAP_CODE_DELAY 10
 
-// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-// #define SPLIT_USB_DETECT
-// #define NO_USB_STARTUP_CHECK
+// Features disabled to reduce firmware size
+#define NO_ACTION_ONESHOT
+

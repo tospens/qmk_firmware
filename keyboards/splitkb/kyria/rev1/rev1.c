@@ -55,7 +55,7 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-/*
+
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
@@ -153,3 +153,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
+

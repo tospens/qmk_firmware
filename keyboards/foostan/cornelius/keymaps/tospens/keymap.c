@@ -206,12 +206,6 @@ void matrix_scan_user(void) {
      LEADER_DICTIONARY() {
         leading = false;
         leader_end();
-        SEQ_ONE_KEY(KC_Q) { // Close window
-            tap_code16(A(KC_F4));
-        }
-        SEQ_ONE_KEY(KC_P) { // Invoke Password Manager
-            SEND_STRING(SS_LCTL(SS_LALT("K")));
-        }
         SEQ_ONE_KEY(KC_S) { // Windows screenshot
             SEND_STRING(SS_LGUI("\nS"));
         }
