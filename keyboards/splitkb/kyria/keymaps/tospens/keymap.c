@@ -30,7 +30,6 @@ uint16_t copy_paste_timer;
 
 // SUPER ALT-TAB
 bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
 
 // SMART BACKSPACE DELETE
 bool shift_held = false;
@@ -309,12 +308,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
-    if (is_alt_tab_active) {
-        if (timer_elapsed(alt_tab_timer) > 1000) {
-            unregister_code(KC_LALT);
-            is_alt_tab_active = false;
-        }
-    }
 
      LEADER_DICTIONARY() {
         leading = false;
@@ -508,8 +501,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code16(C(KC_Z));
                 }
                 break;
-            case RAISE:
-                // Browser tabbing
+            case RAISE: // Browser tabbing
                 if (clockwise) {
                     tap_code16(C(KC_TAB));
                 } else {
@@ -523,35 +515,28 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     rgblight_decrease_hue();
                 }
                 break;
-            default:
-                // Switch between windows on Windows with alt tab
+            default: // Scrolling horizontally by word
                 if (clockwise) {
-                    if (!is_alt_tab_active) {
-                        is_alt_tab_active = true;
-                        register_code(KC_LALT);
-                    }
-                    alt_tab_timer = timer_read();
-                    tap_code16(KC_TAB);
+                    tap_code16(C(KC_RGHT));
                 } else {
-                    tap_code16(S(KC_TAB));
+                    tap_code16(C(KC_LEFT));
                 }
                 break;
         }
     } else if (index == 1) {
         switch (biton32(layer_state)) {
-            case QWERTY:
-                // Volume control
+            case QWERTY: // Volume control
                 if (clockwise) {
                     tap_code(KC_VOLU);
                 } else {
                     tap_code(KC_VOLD);
                 }
                 break;
-            case LOWER: // Scrolling horizontally by word
+            case LOWER: // Scrolling with Mouse Wheel Up and Down
                 if (clockwise) {
-                    tap_code16(C(KC_RGHT));
+                    tap_code(KC_WH_D);
                 } else {
-                    tap_code16(C(KC_LEFT));
+                    tap_code(KC_WH_U);
                 }
                 break;
             case ADJUST: // Underglow brightness
@@ -562,17 +547,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
             default:
-                // Scrolling with Mouse Wheel Up and Down
-                if (clockwise) {
-                    tap_code(KC_WH_D);
-                } else {
-                    tap_code(KC_WH_U);
-                }
+
                 break;
 
         }
     }
-    return true;
+    return false;
 }
 #endif
 
@@ -600,8 +580,8 @@ const rgblight_segment_t PROGMEM raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 // Light LEDs 13 & 14 in green when keyboard navigation layer is active
 const rgblight_segment_t PROGMEM nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 3, HSV_PURPLE},
-    {17, 1, HSV_PURPLE}
+    {10, 3, HSV_SPRINGGREEN},
+    {17, 1, HSV_SPRINGGREEN}
 );
 // Light LEDs 13 & 14 in green when keyboard adjust layer is active
 const rgblight_segment_t PROGMEM adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -622,7 +602,7 @@ void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = rgb_layers;
     rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-    rgblight_sethsv_noeeprom(HSV_WHITE);
+    rgblight_sethsv_noeeprom(0, 0, 100);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 }
 
