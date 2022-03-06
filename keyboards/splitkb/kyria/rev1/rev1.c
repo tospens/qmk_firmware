@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2022 Thomas Baart <thomas@splitkb.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,13 @@ __attribute__ ((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATR
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-/* Map physical under glow LEDs for RGB matrix support */
+/* Map physical under glow LEDs for RGB matrix support
+ *
+ *  09, 05, xx, xx, 04, xx,                   xx, 14, xx, xx, 15, 19,
+ *  xx, xx, xx, xx, xx, 03,                   13, xx, xx, xx, xx, xx,
+ *  08, 06, 07, xx, xx, xx, 00, xx,   xx, 10, xx, xx, xx, 17, 16, 18,
+ *                  xx, 02, 01, xx,   xx, xx, xx, 11, 12, xx
+ */
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
     { NO_LED, NO_LED, NO_LED, 4,      NO_LED, NO_LED, 5,      9     },
@@ -54,6 +60,7 @@ led_config_t g_led_config = { {
     LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
 } };
 #endif
+<<<<<<< HEAD
 
 
 #ifdef OLED_ENABLE
@@ -154,3 +161,5 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 #endif
 
+=======
+>>>>>>> 16cd1d9bf78539dfd2590a831ba9708dcac69411
