@@ -16,7 +16,7 @@
 #define HOME_SCLN RGUI_T(KC_SCLN)
 #define HOME_DOT ALGR_T(KC_DOT)
 
-// Danish æ, ø and å keycodes with EurKey
+// Danish æ, ø and å keycodes for EurKey
 #define KC_AE ALGR(KC_Q)
 #define KC_OE ALGR(KC_L)
 #define KC_AA ALGR(KC_W)
@@ -35,20 +35,13 @@ combo_t key_combos[] = {
 };
 #endif
 
-// Tap Dance declarations
-enum {
-    TD_AE,
-    TD_OE,
-    TD_AA
-};
-
 enum layers { BASE, BUTTON, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_miryoku(
     KC_Q,              KC_W,    KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,            KC_O,     KC_P,
     HOME_A,            HOME_S,  HOME_D,            HOME_F,            KC_G,              KC_H,              HOME_J,            HOME_K,          HOME_L,   HOME_SCLN,
-    LT(BUTTON, KC_Z),  HOME_X,  KC_C,              KC_V,              KC_B,              TD(TD_AE),         TD(TD_OE),         TD(TD_AA),       HOME_DOT, LT(BUTTON, KC_SLSH),
+    LT(BUTTON, KC_Z),  HOME_X,  KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,         HOME_DOT, LT(BUTTON, KC_SLSH),
     U_NP,              U_NP,    LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL), U_NP,     U_NP
   ),
   [NAV] = LAYOUT_miryoku(
@@ -66,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MEDIA] = LAYOUT_miryoku(
     RESET,   U_NA,    U_NA,    U_NA,    U_NA,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,
     KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    U_NU,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT,
-    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    DT_PRNT, DT_DOWN,   DT_UP,    U_NU,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    KC_AE,   KC_OE,   KC_AA,   U_NU,
     U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_MSTP, KC_MPLY, KC_MUTE, U_NP,    U_NP
   ),
   [NUM] = LAYOUT_miryoku(
@@ -93,13 +86,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,   U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
     U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
   )
-};
-
-// Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_AE] = ACTION_TAP_DANCE_DOUBLE(KC_N, ALGR(KC_Q)),
-    [TD_OE] = ACTION_TAP_DANCE_DOUBLE(KC_M, ALGR(KC_L)),
-    [TD_AA] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, ALGR(KC_W))
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
