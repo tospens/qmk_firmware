@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MEDIA] = LAYOUT_miryoku(
     RESET,   U_NA,    U_NA,    U_NA,    U_NA,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,
     KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    U_NU,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT,
-    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    DT_PRNT, DT_DOWN,   DT_UP,    U_NU,
     U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_MSTP, KC_MPLY, KC_MUTE, U_NP,    U_NP
   ),
   [NUM] = LAYOUT_miryoku(
@@ -87,4 +87,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_caps_word(keycode, record)) { return false; }
 
   return true;
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HOME_F:
+            // Immediately select the hold action when another key is tapped.
+            return true;
+        case HOME_J:
+            // Immediately select the hold action when another key is tapped.
+            return true;            
+        default:
+            // Do not select the hold action when another key is tapped.
+            return false;
+    }
 }
