@@ -16,7 +16,7 @@
 
 // default but used in macros
 #undef TAPPING_TERM
-#define TAPPING_TERM 190
+#define TAPPING_TERM 200
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -53,6 +53,14 @@
 #define U_CPY C(KC_C)
 #define U_CUT C(KC_X)
 #define U_UND C(KC_Z)
+
+// Window management keycodes
+#define U_SLFT SGUI(KC_LEFT)
+#define U_WLFT LGUI(KC_LEFT)
+#define U_WNUP LGUI(KC_UP)
+#define U_WRGT LGUI(KC_RGHT)
+#define U_SRGT SGUI(KC_RGHT)
+
 
 #define XXXX KC_NO
 
