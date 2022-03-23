@@ -60,7 +60,6 @@ led_config_t g_led_config = { {
     LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
 } };
 #endif
-<<<<<<< HEAD
 
 
 #ifdef OLED_ENABLE
@@ -161,5 +160,3 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 #endif
 
-=======
->>>>>>> 16cd1d9bf78539dfd2590a831ba9708dcac69411

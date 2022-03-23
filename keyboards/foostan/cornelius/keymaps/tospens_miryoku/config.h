@@ -21,6 +21,9 @@
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
 
+// Enable permissive hold for faster hold activation on mods.
+#define PERMISSIVE_HOLD
+
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define TAPPING_FORCE_HOLD
 
@@ -50,6 +53,14 @@
 #define U_CPY C(KC_C)
 #define U_CUT C(KC_X)
 #define U_UND C(KC_Z)
+
+// Window management keycodes
+#define U_SLFT SGUI(KC_LEFT)
+#define U_WLFT LGUI(KC_LEFT)
+#define U_WNUP LGUI(KC_UP)
+#define U_WRGT LGUI(KC_RGHT)
+#define U_SRGT SGUI(KC_RGHT)
+
 
 #define XXXX KC_NO
 

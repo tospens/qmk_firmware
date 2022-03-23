@@ -5,3 +5,7 @@
 MOUSEKEY_ENABLE = yes # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
 AUTO_SHIFT_ENABLE = yes # Auto Shift
+COMBO_ENABLE = yes # Combos
+DYNAMIC_TAPPING_TERM_ENABLE = yes
+
+SRC += features/caps_word.c
