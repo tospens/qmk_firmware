@@ -16,7 +16,7 @@
 #define HOME_SCLN RGUI_T(KC_SCLN)
 #define HOME_DOT ALGR_T(KC_DOT)
 
-// Danish æ, ø and å keycodes for EurKey
+// Danish æ, ø and å keycodes for EurKey.
 #define KC_AE ALGR(KC_Q)
 #define KC_OE ALGR(KC_L)
 #define KC_AA ALGR(KC_W)

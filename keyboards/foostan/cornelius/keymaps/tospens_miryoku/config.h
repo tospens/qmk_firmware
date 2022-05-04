@@ -47,14 +47,14 @@
 #undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX    64
 
-// Clipboard keycodes
+// Clipboard keycodes.
 #define U_RDO C(KC_Y)
 #define U_PST C(KC_V)
 #define U_CPY C(KC_C)
 #define U_CUT C(KC_X)
 #define U_UND C(KC_Z)
 
-// Window management keycodes
+// Window management keycodes.
 #define U_SLFT SGUI(KC_LEFT)
 #define U_WLFT LGUI(KC_LEFT)
 #define U_WNUP LGUI(KC_UP)
