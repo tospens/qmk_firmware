@@ -2,14 +2,14 @@
 
 #include "features/caps_word.h"
 
-// Left-hand home row mods
+// Left-hand home row mods.
 #define HOME_A LGUI_T(KC_A)
 #define HOME_S LALT_T(KC_S)
 #define HOME_D LCTL_T(KC_D)
 #define HOME_F LSFT_T(KC_F)
 #define HOME_X ALGR_T(KC_X)
 
-// Right-hand home row mods
+// Right-hand home row mods.
 #define HOME_J RSFT_T(KC_J)
 #define HOME_K RCTL_T(KC_K)
 #define HOME_L LALT_T(KC_L)
@@ -21,17 +21,36 @@
 #define KC_OE ALGR(KC_L)
 #define KC_AA ALGR(KC_W)
 
+/** Convenience row shorthands. */
+#define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
+#define ______________HOME_ROW_ALGR_L______________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
+#define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
+#define ______________HOME_ROW_ALGR_R______________ U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA
+#define _____________CLIPBOARD_KEYS_L______________ U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO
+#define _____________CLIPBOARD_KEYS_R______________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND  
+#define _____________WINDOW_MANAGEMENT_____________ U_SLFT,  U_WLFT,  U_WNUP,  U_WRGT,  U_SRGT
+
 #ifdef COMBO_ENABLE
 enum combos {
     QW_EXIT,
+    MCOMM_AE,
+    COMMDOT_OE,
+    DOTSLSH_AA,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM exit_combo[] = { KC_Q, KC_W, COMBO_END };
+const uint16_t PROGMEM ae_combo[] = { KC_M, KC_COMM, COMBO_END };
+const uint16_t PROGMEM oe_combo[] = { KC_COMM, KC_DOT, COMBO_END };
+const uint16_t PROGMEM aa_combo[] = { KC_DOT, KC_SLSH, COMBO_END };
 
 combo_t key_combos[] = {
-    [QW_EXIT] = COMBO(exit_combo, LALT(KC_F4))
+    [QW_EXIT] = COMBO(exit_combo, LALT(KC_F4)),
+    [MCOMM_AE] = COMBO(ae_combo, KC_AE),
+    [COMMDOT_OE] = COMBO(oe_combo, KC_OE),
+    [DOTSLSH_AA] = COMBO(aa_combo, KC_AA)
 };
 #endif
 
@@ -41,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_miryoku(
     KC_Q,              KC_W,    KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,            KC_O,     KC_P,
     HOME_A,            HOME_S,  HOME_D,            HOME_F,            KC_G,              KC_H,              HOME_J,            HOME_K,          HOME_L,   HOME_SCLN,
-    LT(BUTTON, KC_Z),  HOME_X,  KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,         HOME_DOT, LT(BUTTON, KC_SLSH),
+    LT(BUTTON, KC_Z),  HOME_X,  KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,         KC_DOT,   KC_SLSH,
     U_NP,              U_NP,    LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL), U_NP,     U_NP
   ),
   [NAV] = LAYOUT_miryoku(
@@ -65,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NUM] = LAYOUT_miryoku(
     KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
     KC_QUOT, KC_4,    KC_5,    KC_6,    KC_EQL,  U_NA,    KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI,
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, U_NA,    U_NA,    KC_AE,   KC_OE,   KC_AA,
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
     U_NP,    U_NP,    KC_DOT,  KC_0,    KC_MINS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
   [SYM] = LAYOUT_miryoku(
