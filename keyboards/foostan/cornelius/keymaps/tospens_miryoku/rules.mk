@@ -9,3 +9,4 @@ COMBO_ENABLE = yes # Combos
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 
 SRC += features/caps_word.c
+SRC += features/select_word.c

@@ -1,13 +1,18 @@
 #include QMK_KEYBOARD_H
 
 #include "features/caps_word.h"
+#include "features/select_word.h"
+
+enum custom_keycodes {
+  SELWORD = SAFE_RANGE,
+};
 
 // Left-hand home row mods.
 #define HOME_A LGUI_T(KC_A)
 #define HOME_S LALT_T(KC_S)
 #define HOME_D LCTL_T(KC_D)
 #define HOME_F LSFT_T(KC_F)
-#define HOME_X ALGR_T(KC_X)
+#define HOME_X ALGR_T(KC_X) 
 
 // Right-hand home row mods.
 #define HOME_J RSFT_T(KC_J)
@@ -72,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MOUSE] = LAYOUT_miryoku(
     RESET,   U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
     KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    U_NU,    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
-    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
+    U_NA,    KC_ALGR, SELWORD, U_NA,    U_NA,    U_NU,    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
     U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
   ),
   [MEDIA] = LAYOUT_miryoku(
@@ -109,6 +114,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_caps_word(keycode, record)) { return false; }
-
+  if (!process_select_word(keycode, record, SELWORD)) { return false; }
   return true;
 }
