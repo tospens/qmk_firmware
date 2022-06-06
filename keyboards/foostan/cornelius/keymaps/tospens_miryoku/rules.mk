@@ -8,5 +8,6 @@ AUTO_SHIFT_ENABLE = yes # Auto Shift
 COMBO_ENABLE = yes # Combos
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 
+SRC += features/achordion.c
 SRC += features/caps_word.c
 SRC += features/select_word.c

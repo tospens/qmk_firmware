@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 
+#include "features/achordion.h"
 #include "features/caps_word.h"
 #include "features/select_word.h"
 
@@ -112,8 +113,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+bool achordion_eager_mod(uint8_t mod) {
+  switch (mod) {
+    case MOD_LSFT:
+    case MOD_RSFT:
+    case MOD_LCTL:
+    case MOD_RCTL:
+      return true;  // Eagerly apply Shift and Ctrl mods.
+
+    default:
+      return false;
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_achordion(keycode, record)) { return false; }
   if (!process_caps_word(keycode, record)) { return false; }
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
   return true;
+}
+
+void matrix_scan_user(void) {
+  achordion_task();
 }
