@@ -6,7 +6,6 @@
 
 #pragma once
 
-// Set Bootmagic key to Q
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
 
@@ -35,18 +34,6 @@
 // Recommended for heavy chording.
 #define QMK_KEYS_PER_SCAN 4
 
-// Mouse key speed and acceleration.
-#undef MOUSEKEY_DELAY
-#define MOUSEKEY_DELAY          0
-#undef MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL       16
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY    0
-#undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED      6
-#undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX    64
-
 // Clipboard keycodes.
 #define U_RDO C(KC_Y)
 #define U_PST C(KC_V)
@@ -60,3 +47,5 @@
 #define U_WNUP LGUI(KC_UP)
 #define U_WRGT LGUI(KC_RGHT)
 #define U_SRGT SGUI(KC_RGHT)
+#define U_DRGT LCTL(LGUI(KC_RGHT))
+#define U_DLFT LCTL(LGUI(KC_LEFT))
