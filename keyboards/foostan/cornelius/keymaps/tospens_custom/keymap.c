@@ -28,6 +28,16 @@ enum custom_keycodes {
 #define HOME_SCLN RGUI_T(KC_SCLN)
 #define HOME_DOT ALGR_T(KC_DOT)
 
+// Left-hand thumb keys.
+#define U_MEDIA LT(MEDIA, KC_ESC)
+#define U_NAV LT(NAV, KC_SPC)
+#define U_SYMR LT(SYMR, KC_TAB)
+
+// Right-hand thumb keys.
+#define U_SYML LT(SYML, KC_ENT)
+#define U_NUM LT(NUM, KC_BSPC)
+#define U_FUN LT(FUN, KC_DEL)
+
 // Danish æ, ø and å keycodes for EurKey.
 #define KC_AE ALGR(KC_Q)
 #define KC_OE ALGR(KC_L)
@@ -47,10 +57,10 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,            KC_O,     KC_P,      KC_BSLS,
-    KC_ESC,  HOME_A,  HOME_S,  HOME_D,            HOME_F,            KC_G,              KC_H,              HOME_J,            HOME_K,          HOME_L,   HOME_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,    HOME_X,  KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,         KC_DOT,   KC_SLSH,   KC_RSFT,
-    KC_LCTL, KC_DOWN, KC_UP,   LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(SYMR, KC_TAB), LT(SYML, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL), KC_LEFT,  KC_RGHT,   SRCHSEL
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_BSLS,
+    KC_ESC,  HOME_A,  HOME_S,  HOME_D,  HOME_F, KC_G,     KC_H,   HOME_J, HOME_K,  HOME_L,  HOME_SCLN, KC_QUOT,
+    KC_LSFT, KC_Z,    HOME_X,  KC_C,    KC_V,   KC_B,     KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,   KC_RSFT,
+    KC_LCTL, KC_DOWN, KC_UP,   U_MEDIA, U_NAV,  U_SYMR,   U_SYML, U_NUM,  U_FUN,   KC_LEFT, KC_RGHT,   SRCHSEL
   ),
   [NAV] = LAYOUT(
     U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,    U_UND,   U_NU,
@@ -109,7 +119,7 @@ const uint16_t PROGMEM ae_combo[] = { KC_M, KC_COMM, COMBO_END };
 const uint16_t PROGMEM oe_combo[] = { KC_COMM, KC_DOT, COMBO_END };
 const uint16_t PROGMEM aa_combo[] = { KC_DOT, KC_SLSH, COMBO_END };
 const uint16_t caps_combo[] PROGMEM = {KC_E, KC_I, COMBO_END};
-const uint16_t end_sentence_combo[] PROGMEM = {KC_COMM, KC_DOT, COMBO_END};
+const uint16_t end_sentence_combo[] PROGMEM = {KC_U, KC_R, COMBO_END};
 
 combo_t key_combos[] = {
     [QW_EXIT] = COMBO(exit_combo, LALT(KC_F4)),
@@ -136,6 +146,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  switch (tap_hold_keycode) {
+    case U_NAV:
+    case U_FUN:
+      return 0;  // Bypass Achordion for these keys.
+  }
+
+  return 800;  // Otherwise use a timeout of 800 ms.
+}
+
 bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
@@ -144,7 +164,10 @@ bool achordion_chord(uint16_t tap_hold_keycode,
     case HOME_SCLN:  // SCLN + L.
       if (other_keycode == HOME_L) { return true; }
       break;
-  }
+    case HOME_D:
+      if (other_keycode == KC_W) { return true; }
+      break;
+  } 
 
   // Also allow same-hand holds when the other key is in the rows below the
   // alphas. 
@@ -160,7 +183,7 @@ bool achordion_eager_mod(uint8_t mod) {
     case MOD_RSFT:
     case MOD_LCTL:
     case MOD_RCTL:
-      return true;  // Eagerly apply Shift and Ctrl mods.S
+      return true;  // Eagerly apply Shift and Ctrl mods.
 
     default:
       return false;
