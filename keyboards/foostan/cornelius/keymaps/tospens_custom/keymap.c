@@ -129,7 +129,6 @@ combo_t key_combos[] = {
     [CAPS_COMBO] = COMBO_ACTION(caps_combo),
     [END_SENTENCE_COMBO] = COMBO_ACTION(end_sentence_combo),
 };
-#endif
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   if (pressed) {
@@ -145,6 +144,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
   }
 }
+#endif
 
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
   switch (tap_hold_keycode) {
