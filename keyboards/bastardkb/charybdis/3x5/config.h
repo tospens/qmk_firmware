@@ -18,11 +18,17 @@
 
 #pragma once
 
+#include "config_common.h"
+
 /* Key matrix configuration. */
 #define MATRIX_ROWS 8 // Rows are doubled-up.
 #define MATRIX_COLS 5
 
 #define DIODE_DIRECTION ROW2COL
+
+/* Disable action features. */
+#define NO_ACTION_MACRO    // Disable old-style macro handling.
+#define NO_ACTION_FUNCTION // Disable old-style function handling.
 
 /* Set 0 if debouncing isn't needed. */
 #define DEBOUNCE 5

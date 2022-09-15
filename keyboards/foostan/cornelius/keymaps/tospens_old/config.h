@@ -1,6 +1,4 @@
 /*
- * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
- *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -17,20 +15,10 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { F7, C6, D4, B5 }
-#define MATRIX_COL_PINS \
-    { F5, B6, D7, E6, B4 }
+// The Leader key allows to flexibly assign macros to key sequences.
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 350
 
-/* Handedness. */
-#define MASTER_RIGHT
-
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN D2
-
-/* RGB settings. */
-#define RGB_DI_PIN D3
-
-/* PMW3360 settings. */
-#define PMW3360_CS_PIN F0
+#ifdef COMBO_ENABLE
+  #define COMBO_COUNT 4
+#endif

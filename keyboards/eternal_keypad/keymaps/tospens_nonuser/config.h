@@ -1,5 +1,4 @@
-/*
- * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+/* Copyright 2021 duckyb
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,23 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { F7, C6, D4, B5 }
-#define MATRIX_COL_PINS \
-    { F5, B6, D7, E6, B4 }
-
-/* Handedness. */
-#define MASTER_RIGHT
-
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN D2
-
-/* RGB settings. */
-#define RGB_DI_PIN D3
-
-/* PMW3360 settings. */
-#define PMW3360_CS_PIN F0
+#define ONESHOT_TIMEOUT 2000
+#define FORCE_NKRO
