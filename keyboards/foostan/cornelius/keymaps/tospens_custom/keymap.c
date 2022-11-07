@@ -30,12 +30,12 @@ enum custom_keycodes {
 // Convenience row shorthands.
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
-#define ______________HOME_ROW_ALGR_L______________ U_NA, KC_ALGR, U_NA, U_NA, U_NA
+#define ______________HOME_ROW_ALGR_L______________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
 #define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
-#define ______________HOME_ROW_ALGR_R______________ U_NA, U_NA, U_NA, KC_ALGR, U_NA
-#define _____________CLIPBOARD_KEYS_L______________ U_UND, U_CUT, U_CPY, U_PST, U_RDO
-#define _____________CLIPBOARD_KEYS_R______________ U_RDO, U_PST, U_CPY, U_CUT, U_UND
-#define _____________WINDOW_MANAGEMENT_____________ U_SLFT, U_WLFT, U_WNUP, U_WRGT, U_SRGT
+#define ______________HOME_ROW_ALGR_R______________ U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA
+#define _____________CLIPBOARD_KEYS_L______________ U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO
+#define _____________CLIPBOARD_KEYS_R______________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
+#define _____________WINDOW_MANAGEMENT_____________ U_SLFT,  U_WLFT,  U_WNUP,  U_WRGT,  U_SRGT
 
 enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
 
