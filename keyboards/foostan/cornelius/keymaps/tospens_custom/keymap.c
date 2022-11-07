@@ -7,11 +7,9 @@
 enum custom_keycodes {
   SELWORD = SAFE_RANGE,
   UPDIR,
+  CBLCK,
   JOINLN,
   SRCHSEL,
-  DASH,
-  ARROW,
-  THMBUP,
 };
 
 // Left-hand home row mods.
@@ -63,10 +61,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_DOWN, KC_UP,   U_MEDIA, U_NAV,  U_SYMR,   U_SYML, U_NUM,  U_FUN,   KC_LEFT, KC_RGHT,   SRCHSEL
   ),
   [NAV] = LAYOUT(
-    U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,    U_UND,   U_NU,
-    U_NA, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT, U_NU,
-    U_NA, U_SLFT,  U_WLFT,  U_WNUP,  U_WRGT,  U_SRGT,  SELWORD, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  U_NU,
-    U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_ENT,  KC_BSPC, KC_DEL,  U_DLFT,   U_DRGT,  JOINLN
+    U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,   U_NU,
+    U_NA, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    SELWORD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, U_NU,
+    U_NA, U_SLFT,  U_WLFT,  U_WNUP,  U_WRGT,  U_SRGT,  JOINLN,  KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_CAPS,
+    U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_ENT,  KC_BSPC, KC_DEL,  U_DLFT,  U_DRGT,  U_NU
   ),
   [MEDIA] = LAYOUT(
     U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,
@@ -75,22 +73,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_MSTP, KC_MPLY, KC_MUTE, U_NU,    U_NU,    U_NU
   ),
   [NUM] = LAYOUT(
-    U_NA, KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,
-    U_NA, KC_QUOT, KC_4,    KC_5,    KC_6,    KC_EQL,  U_NA,    KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, U_NA,
-    U_NA, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,    U_NA,
-    U_NA, U_NA,    U_NA,    KC_DOT,  KC_0,    KC_MINS, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA
+    U_NA, KC_EQL,  KC_7,    KC_8,    KC_9,    KC_DOT,  U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,
+    U_NA, KC_COLN, KC_4,    KC_5,    KC_6,    KC_PLUS, U_NA,    KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, U_NA,
+    U_NA, KC_SLSH, KC_1,    KC_2,    KC_3,    KC_ASTR, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,    U_NA,
+    U_NA, U_NA,    U_NA,    KC_BSPC, KC_0,    KC_MINS, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA
   ),
   [SYML] = LAYOUT(
-    U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, KC_DOT,  U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,
+    U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,   U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,
     U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH, U_NA,    KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, U_NA,
     U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,   U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,    U_NA,
-    U_NU, U_NU,    U_NU,    KC_LPRN, KC_RPRN, KC_UNDS, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA
+    U_NU, U_NU,    U_NU,    U_NU,    KC_UNDS, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA
   ),
   [SYMR] = LAYOUT(
-    U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_AMPR, KC_UNDS, KC_LBRC, KC_RBRC, KC_PERC, U_NU,
-    U_NA, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, KC_QUES, U_NU,
-    U_NA, U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_TILD, KC_DLR , KC_LCBR, KC_RCBR, KC_AT,   U_NU,
-    U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_UNDS, KC_MINS, SELWORD, U_NU,    U_NU,    U_NU
+    U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_GRV,  KC_AMPR,  KC_LBRC, KC_RBRC, KC_PERC, U_NU,
+    U_NA, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,    U_NU,
+    U_NA, U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_TILD, KC_DLR , KC_LCBR, KC_RCBR, KC_QUES,  U_NU,
+    U_NA, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU, U_NU, SELWORD, U_NU,    U_NU,    U_NU
   ),
   [FUN] = LAYOUT(
     U_NU, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    RESET,
@@ -194,18 +192,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_achordion(keycode, record)) { return false; }
   if (!process_caps_word(keycode, record)) { return false; }
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
-
-#ifndef NO_ACTION_ONESHOT
-  const bool shifted = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
-#else
-  const bool shifted = get_mods() & MOD_MASK_SHIFT;
-#endif  // NO_ACTION_ONESHOT
-
+  
   if (record->event.pressed) {
     switch (keycode) {
 
       case UPDIR:
         SEND_STRING("../");
+        return false;
+      
+      case CBLCK:
+        SEND_STRING("```");
         return false;
 
       case SRCHSEL:  // Searches the current selection in a new tab.
@@ -229,26 +225,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             SS_TAP(X_SPC));
         return false;
 
-      // The following cases type a few Unicode symbols.
-      //
-      // `send_unicode_hex_string()` is deprecated. The docs suggest to ensure
-      // keymap.c is UTF-8 encoded and write literal Unicode characters in the
-      // string passed to `send_unicode_string()`. Unfortunately, terminals can
-      // have problems displaying Unicode correctly with monospaced width (or
-      // at all). So we take another approach: write escape codes `\xhh` for the
-      // UTF-8 encoding.
-
-      case DASH:  // En dash, or em dash when shifted.
-        send_unicode_string(shifted ? "\xe2\x80\x94" : "\xe2\x80\x93");
-        return false;
-
-      case ARROW:  // -> Unicode arrow, or => when shifted.
-        send_unicode_string(shifted ? "\xe2\x87\x92" : "\xe2\x86\x92");
-        return false;
-
-      case THMBUP:  // Thumbs up emoji, or party emoji when shifted.
-        send_unicode_string(shifted ? "\xf0\x9f\xa5\xb3" : "\xf0\x9f\x91\x8d");
-        return false;
     }
   }
 
