@@ -10,5 +10,5 @@ MOUSEKEY_ENABLE = no # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
 AUTO_SHIFT_ENABLE = no # Auto Shift
 COMBO_ENABLE = yes # Combos
-DYNAMIC_TAPPING_TERM_ENABLE = yes
-UNICODEMAP_ENABLE = yes
+DYNAMIC_TAPPING_TERM_ENABLE = no
+UNICODEMAP_ENABLE = no

@@ -83,7 +83,7 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
     U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,      _______________DEAD_HALF_ROW_______________, U_NA,     \
     U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    ______________HOME_ROW_GACS_R______________, U_NA,     \
     U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,      ______________HOME_ROW_ALGR_R______________, U_NA,     \
-    U_NU, U_NU,    U_NU,    U_NU,    U_NU   , KC_UNDS,    _______________DEAD_HALF_ROW_______________, U_NA    
+    U_NU, U_NU,    U_NU,    U_NU,    U_NU,    KC_UNDS,    _______________DEAD_HALF_ROW_______________, U_NA    
 
 #define LAYOUT_LAYER_SYMBOLS_RIGHT                                                                               \
     U_NA, _______________DEAD_HALF_ROW_______________,    KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC,  U_NU,    \
@@ -95,7 +95,7 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
     RESET, _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
     U_NA,  ______________HOME_ROW_GACS_L______________,   KC_SLCK,  KC_F4,   KC_F5,   KC_F6,   KC_F11, U_NU,     \
     U_NA,  ______________HOME_ROW_ALGR_L______________,   KC_PAUS,  KC_F1,   KC_F2,   KC_F3,   KC_F10, U_NU,     \
-    U_NA,  _______________DEAD_HALF_ROW_______________,   kSRCHSEL, U_NU,    KC_APP,  U_NU,    U_NU,   U_NU
+    U_NA,  _______________DEAD_HALF_ROW_______________,   SRCHSEL, U_NU,    KC_APP,  U_NU,    U_NU,   U_NU
 
 // Add Home Row mod to a layout.
 #define _HOME_ROW_MOD_GACS(                                                                           \
