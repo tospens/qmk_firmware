@@ -14,4 +14,4 @@ RGB_MATRIX_ENABLE = no
 COMBO_ENABLE = yes
 
 # Via settings.
-VIA_ENABLE = yes
+VIA_ENABLE = no
