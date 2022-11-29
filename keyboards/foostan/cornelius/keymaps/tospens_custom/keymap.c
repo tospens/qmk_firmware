@@ -13,14 +13,14 @@ enum custom_keycodes {
 };
 
 // Left-hand thumb keys.
-#define U_MEDIA LT(MEDIA, KC_ESC)
+#define U_FUN LT(FUN, KC_ESC)
 #define U_NAV LT(NAV, KC_SPC)
 #define U_SYMR LT(SYMR, KC_TAB)
 
 // Right-hand thumb keys.
 #define U_SYML LT(SYML, KC_ENT)
 #define U_NUM LT(NUM, KC_BSPC)
-#define U_FUN LT(FUN, KC_DEL)
+#define U_MEDIA LT(MEDIA, KC_DEL)
 
 // Danish æ, ø and å keycodes for EurKey.
 #define KC_AE ALGR(KC_Q)
@@ -41,11 +41,25 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
 
 // clang-format off
 // QWERTY layout (4 rows, 12 columns)
+/*
+    LAYOUT_LAYER_FUNCTION_LEFT
+    U_NU, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,    _______________DEAD_HALF_ROW_______________, RESET,    \
+    U_NU, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,    ______________HOME_ROW_GACS_R______________, U_NA,     \
+    U_NU, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS,    ______________HOME_ROW_ALGR_R______________, U_NA,     \
+    U_NU, U_NU,    U_NU,    KC_APP,  KC_SPC,  KC_TAB,     _______________DEAD_HALF_ROW_______________, U_NA
+
+    LAYOUT_LAYER_MEDIA_RIGHT
+    U_NA, _______________DEAD_HALF_ROW_______________,    _______________DEAD_HALF_ROW_______________, U_NU,     \
+    U_NA, ______________HOME_ROW_GACS_L______________,    U_NU,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,     \
+    U_NA, ______________HOME_ROW_ALGR_L______________,    U_NU,    DT_PRNT, DT_DOWN, DT_UP,   U_NU,    U_NU,     \
+    U_NA, _______________DEAD_HALF_ROW_______________,    KC_MSTP, KC_MPLY, KC_MUTE, U_NU,    U_NU,    U_NU
+
+*/
 #define LAYOUT_LAYER_BASE                                                                                        \
     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_BSLS, \
     KC_ESC,   KC_A,    KC_S,    KC_D,    KC_F,   KC_G,     KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN,   KC_QUOT, \
     KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,     KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,   KC_RSFT, \
-    KC_LCTL,  KC_DOWN, KC_UP,   U_MEDIA, U_NAV,  U_SYMR,   U_SYML, U_NUM,  U_FUN,   KC_LEFT, KC_RGHT,   SRCHSEL 
+    KC_LCTL,  KC_DOWN, KC_UP,   U_FUN,   U_NAV,  U_SYMR,   U_SYML, U_NUM,  U_MEDIA, KC_LEFT, KC_RGHT,   SRCHSEL 
 
 #define LAYOUT_LAYER_NAVIGATION                                                                                  \
     U_NA, _______________DEAD_HALF_ROW_______________,    _____________CLIPBOARD_KEYS_R______________, U_NU,     \
@@ -55,9 +69,9 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
 
 #define LAYOUT_LAYER_MEDIA                                                                                       \
     U_NA, _______________DEAD_HALF_ROW_______________,    _______________DEAD_HALF_ROW_______________, U_NU,     \
-    U_NA, ______________HOME_ROW_GACS_L______________,    U_NU,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,     \
-    U_NA, ______________HOME_ROW_ALGR_L______________,    U_NU,    DT_PRNT, DT_DOWN, DT_UP,   U_NU,    U_NU,     \
-    U_NA, _______________DEAD_HALF_ROW_______________,    KC_MSTP, KC_MPLY, KC_MUTE, U_NU,    U_NU,    U_NU
+    U_NA, KC_MPRV, KC_VOLU, KC_VOLD, KC_MNXT, U_NU,       ______________HOME_ROW_GACS_R______________, U_NU,     \
+    U_NA, U_NU,    U_NU,    U_NU,    U_NU,    U_NU,       ______________HOME_ROW_ALGR_R______________, U_NU,     \
+    U_NA, U_NU,    U_NU,    KC_MUTE, KC_MPLY, KC_MSTP,    _______________DEAD_HALF_ROW_______________, U_NU
 
 #define LAYOUT_LAYER_NUMERAL                                                                                     \
     U_NU, KC_EQL,  KC_7,    KC_8,    KC_9,    KC_DOT,     _______________DEAD_HALF_ROW_______________, U_NA,     \
@@ -69,19 +83,19 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
     U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,      _______________DEAD_HALF_ROW_______________, U_NA,     \
     U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    ______________HOME_ROW_GACS_R______________, U_NA,     \
     U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,      ______________HOME_ROW_ALGR_R______________, U_NA,     \
-    U_NU, U_NU,    U_NU,    U_NU,    KC_UNDS, U_NU,       _______________DEAD_HALF_ROW_______________, U_NA    
+    U_NU, U_NU,    U_NU,    U_NU,    U_NU   , KC_UNDS,    _______________DEAD_HALF_ROW_______________, U_NA    
 
 #define LAYOUT_LAYER_SYMBOLS_RIGHT                                                                               \
-    U_NA, _______________DEAD_HALF_ROW_______________,    KC_GRV,  KC_AMPR,  KC_LBRC, KC_RBRC, KC_PERC, U_NU,    \
+    U_NA, _______________DEAD_HALF_ROW_______________,    KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC,  U_NU,    \
     U_NA, ______________HOME_ROW_GACS_L______________,    KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,    U_NU,    \
-    U_NA, ______________HOME_ROW_ALGR_L______________,    KC_TILD, KC_DLR , KC_LCBR, KC_RCBR, KC_QUES,  U_NU,    \
+    U_NA, ______________HOME_ROW_ALGR_L______________,    KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_QUES,  U_NU,    \
     U_NA, _______________DEAD_HALF_ROW_______________,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,     U_NU
 
 #define LAYOUT_LAYER_FUNCTION                                                                                    \
-    U_NU, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,    _______________DEAD_HALF_ROW_______________, RESET,    \
-    U_NU, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,    ______________HOME_ROW_GACS_R______________, U_NA,     \
-    U_NU, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS,    ______________HOME_ROW_ALGR_R______________, U_NA,     \
-    U_NU, U_NU,    U_NU,    KC_APP,  KC_SPC,  KC_TAB,     _______________DEAD_HALF_ROW_______________, U_NA
+    RESET, _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
+    U_NA,  ______________HOME_ROW_GACS_L______________,   KC_SLCK,  KC_F4,   KC_F5,   KC_F6,   KC_F11, U_NU,     \
+    U_NA,  ______________HOME_ROW_ALGR_L______________,   KC_PAUS,  KC_F1,   KC_F2,   KC_F3,   KC_F10, U_NU,     \
+    U_NA,  _______________DEAD_HALF_ROW_______________,   kSRCHSEL, U_NU,    KC_APP,  U_NU,    U_NU,   U_NU
 
 // Add Home Row mod to a layout.
 #define _HOME_ROW_MOD_GACS(                                                                           \
@@ -114,7 +128,7 @@ enum combos {
     MCOMM_AE,
     COMMDOT_OE,
     DOTSLSH_AA,
-    CAPS_COMBO,
+    CAPS_COMBO, 
     END_SENTENCE_COMBO,
     COMBO_LENGTH
 };
@@ -124,7 +138,7 @@ const uint16_t PROGMEM exit_combo[] = { KC_Q, KC_W, COMBO_END };
 const uint16_t PROGMEM ae_combo[] = { KC_M, KC_COMM, COMBO_END };
 const uint16_t PROGMEM oe_combo[] = { KC_COMM, KC_DOT, COMBO_END };
 const uint16_t PROGMEM aa_combo[] = { KC_DOT, KC_SLSH, COMBO_END };
-const uint16_t PROGMEM caps_combo[] = {KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM caps_combo[] = {KC_V, KC_M, COMBO_END};
 const uint16_t PROGMEM end_sentence_combo[] = {KC_U, KC_R, COMBO_END};
 
 combo_t key_combos[] = {
