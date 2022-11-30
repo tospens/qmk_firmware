@@ -61,8 +61,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 
 #define ESC_FUN LT(LAYER_FUNCTION, KC_ESC)
 #define SPC_NAV LT(LAYER_NAVIGATION, KC_SPC)
-#define TAB_SYM LT(LAYER_SYMBOLL, KC_TAB)
-#define ENT_SYM LT(LAYER_SYMBOLR, KC_ENT)
+#define TAB_SYM LT(LAYER_SYMBOLR, KC_TAB)
+#define ENT_SYM LT(LAYER_SYMBOLL, KC_ENT)
 #define BSP_NUM LT(LAYER_NUMERAL, KC_BSPC)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
 
@@ -105,7 +105,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM exit_combo[] = { KC_Q, KC_W, COMBO_END };
 const uint16_t PROGMEM ae_combo[] = { KC_M, KC_COMM, COMBO_END };
 const uint16_t PROGMEM oe_combo[] = { KC_COMM, KC_DOT, COMBO_END };
-const uint16_t PROGMEM aa_combo[] = { KC_DOT, KC_SLSH, COMBO_END };
+const uint16_t PROGMEM aa_combo[] = { KC_DOT, _L_PTR(KC_SLSH), COMBO_END };
 const uint16_t caps_combo[] PROGMEM = {KC_M, KC_V, COMBO_END};
 
 combo_t key_combos[] = {
@@ -132,6 +132,7 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
   switch (tap_hold_keycode) {
     case SPC_NAV:
     case TAB_SYM:
+    case _L_PTR(KC_Z):
       return 0;  // Bypass Achordion for these keys.
   }
 
