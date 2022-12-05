@@ -40,8 +40,7 @@ enum charybdis_keymap_layers {
     LAYER_NAVIGATION,
     LAYER_POINTER,
     LAYER_NUMERAL,
-    LAYER_SYMBOLR,
-    LAYER_SYMBOLL
+    LAYER_SYMBOL
 };
 
 // Automatically enable sniping-mode on the pointer layer.
@@ -61,8 +60,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 
 #define ESC_FUN LT(LAYER_FUNCTION, KC_ESC)
 #define SPC_NAV LT(LAYER_NAVIGATION, KC_SPC)
-#define TAB_SYM LT(LAYER_SYMBOLR, KC_TAB)
-#define ENT_SYM LT(LAYER_SYMBOLL, KC_ENT)
+#define TAB_SYM LT(LAYER_SYMBOL, KC_TAB)
+#define ENT_SYM LT(LAYER_SYMBOL, KC_ENT)
 #define BSP_NUM LT(LAYER_NUMERAL, KC_BSPC)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
 
@@ -224,17 +223,11 @@ bool achordion_eager_mod(uint8_t mod) {
     KC_SLSH,    KC_1,    KC_2,    KC_3, KC_ASTR, ______________HOME_ROW_ALGR_R______________, \
                          KC_BSPC, KC_0, KC_MINS, XXXXXXX, _______
 
-#define LAYOUT_LAYER_SYMBOLS_RIGHT                                                            \
-    _______________DEAD_HALF_ROW_______________, KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC, \
-    ______________HOME_ROW_GACS_L______________, KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,   \
-    ______________HOME_ROW_ALGR_L______________, KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_QUES, \
-                      XXXXXXX, XXXXXXX, _______, U_NU,    U_NU    
-
-#define LAYOUT_LAYER_SYMBOLS_LEFT                                                             \
-    KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,   _______________DEAD_HALF_ROW_______________, \
-    KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH, ______________HOME_ROW_GACS_R______________, \
-    KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,   ______________HOME_ROW_ALGR_R______________, \
-                      U_NU,    U_NU,    KC_UNDS, _______, XXXXXXX
+#define LAYOUT_LAYER_SYMBOLS                                                                  \
+    KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,   KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC, \
+    KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_HASH, KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,   \
+    KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,   KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_QUES, \
+                      XXXXXXX, XXXXXXX, KC_UNDS, U_NU,    U_NU    
 
 // Add Home Row mod to a layout.
 #define _HOME_ROW_MOD_GACS(                                            \
@@ -274,8 +267,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //[LAYER_MEDIA] = LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
   [LAYER_NUMERAL] = LAYOUT_wrapper(LAYOUT_LAYER_NUMERAL),
   [LAYER_POINTER] = LAYOUT_wrapper(LAYOUT_LAYER_POINTER),
-  [LAYER_SYMBOLR] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS_RIGHT),
-  [LAYER_SYMBOLL] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS_LEFT),
+  [LAYER_SYMBOL] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS),
 };
 // clang-format on
 
