@@ -15,10 +15,10 @@ enum custom_keycodes {
 // Left-hand thumb keys.
 #define U_FUN LT(FUN, KC_ESC)
 #define U_NAV LT(NAV, KC_SPC)
-#define U_SYMR LT(SYMR, KC_TAB)
+#define U_SYMR LT(SYM, KC_TAB)
 
 // Right-hand thumb keys.
-#define U_SYML LT(SYML, KC_ENT)
+#define U_SYML LT(SYM, KC_ENT)
 #define U_NUM LT(NUM, KC_BSPC)
 #define U_MEDIA LT(MEDIA, KC_DEL)
 
@@ -37,7 +37,7 @@ enum custom_keycodes {
 #define _____________CLIPBOARD_KEYS_R______________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _____________WINDOW_MANAGEMENT_____________ U_SLFT,  U_WLFT,  U_WNUP,  U_WRGT,  U_SRGT
 
-enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
+enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
 
 // clang-format off
 // QWERTY layout (4 rows, 12 columns)
@@ -53,6 +53,19 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
     U_NA, ______________HOME_ROW_GACS_L______________,    U_NU,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,     \
     U_NA, ______________HOME_ROW_ALGR_L______________,    U_NU,    DT_PRNT, DT_DOWN, DT_UP,   U_NU,    U_NU,     \
     U_NA, _______________DEAD_HALF_ROW_______________,    KC_MSTP, KC_MPLY, KC_MUTE, U_NU,    U_NU,    U_NU
+
+
+#define LAYOUT_LAYER_SYMBOLS_LEFT                                                                                \
+    U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,      _______________DEAD_HALF_ROW_______________, U_NA,     \
+    U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    ______________HOME_ROW_GACS_R______________, U_NA,     \
+    U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,      ______________HOME_ROW_ALGR_R______________, U_NA,     \
+    U_NU, U_NU,    U_NU,    U_NU,    U_NU,    KC_UNDS,    _______________DEAD_HALF_ROW_______________, U_NA    
+
+#define LAYOUT_LAYER_SYMBOLS_RIGHT                                                                               \
+    U_NA, _______________DEAD_HALF_ROW_______________,    KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC,  U_NU,    \
+    U_NA, ______________HOME_ROW_GACS_L______________,    KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,    U_NU,    \
+    U_NA, ______________HOME_ROW_ALGR_L______________,    KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_QUES,  U_NU,    \
+    U_NA, _______________DEAD_HALF_ROW_______________,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,     U_NU
 
 */
 #define LAYOUT_LAYER_BASE                                                                                        \
@@ -79,17 +92,11 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYML, SYMR, NUM, FUN };
     U_NU, KC_SLSH, KC_1,    KC_2,    KC_3,    KC_ASTR,    ______________HOME_ROW_ALGR_R______________, U_NA,     \
     U_NU, U_NU,    U_NU,    KC_BSPC, KC_0,    KC_MINS,    _______________DEAD_HALF_ROW_______________, U_NA
 
-#define LAYOUT_LAYER_SYMBOLS_LEFT                                                                                \
-    U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,      _______________DEAD_HALF_ROW_______________, U_NA,     \
-    U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    ______________HOME_ROW_GACS_R______________, U_NA,     \
-    U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,      ______________HOME_ROW_ALGR_R______________, U_NA,     \
-    U_NU, U_NU,    U_NU,    U_NU,    U_NU,    KC_UNDS,    _______________DEAD_HALF_ROW_______________, U_NA    
-
-#define LAYOUT_LAYER_SYMBOLS_RIGHT                                                                               \
-    U_NA, _______________DEAD_HALF_ROW_______________,    KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC,  U_NU,    \
-    U_NA, ______________HOME_ROW_GACS_L______________,    KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,    U_NU,    \
-    U_NA, ______________HOME_ROW_ALGR_L______________,    KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_QUES,  U_NU,    \
-    U_NA, _______________DEAD_HALF_ROW_______________,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,     U_NU
+#define LAYOUT_LAYER_SYMBOLS                                                                                     \
+    U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,      KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC,  U_NU,    \
+    U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,    U_NU,    \
+    U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,      KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_QUES,  U_NU,    \
+    U_NU, U_NU,    U_NU,    U_NU,    U_NU,    KC_UNDS,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,     U_NU
 
 #define LAYOUT_LAYER_FUNCTION                                                                                    \
     RESET, _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
@@ -115,8 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NAV] = LAYOUT_wrapper(LAYOUT_LAYER_NAVIGATION),
   [MEDIA] = LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
   [NUM] = LAYOUT_wrapper(LAYOUT_LAYER_NUMERAL),
-  [SYML] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS_LEFT),
-  [SYMR] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS_RIGHT),
+  [SYM] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS),
   [FUN] = LAYOUT_wrapper(LAYOUT_LAYER_FUNCTION),
 };
 
@@ -171,6 +177,8 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
     switch (tap_hold_keycode) {
         case U_NAV:
         case U_FUN:
+        case U_SYML:
+        case U_SYMR:
             return 0; // Bypass Achordion for these keys.
     }
 
