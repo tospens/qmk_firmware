@@ -212,7 +212,7 @@ bool achordion_eager_mod(uint8_t mod) {
                       KC_BTN2, KC_BTN1, KC_BTN3, KC_ENT, KC_DEL
 
 #define LAYOUT_LAYER_NAVIGATION                                                               \
-    _______________DEAD_HALF_ROW_______________, _____________CLIPBOARD_KEYS_R______________, \
+    _____________CLIPBOARD_KEYS_L______________, _____________CLIPBOARD_KEYS_R______________, \
     ______________HOME_ROW_GACS_L______________, SELWORD, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, \
     _____________WINDOW_MANAGEMENT_____________, JOINLN,  KC_HOME, KC_PGDN, KC_PGUP,  KC_END, \
                       XXXXXXX, _______, XXXXXXX, KC_ENT,  KC_BSPC

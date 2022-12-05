@@ -75,7 +75,7 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
     KC_LCTL,  KC_DOWN, KC_UP,   U_FUN,   U_NAV,  U_SYMR,   U_SYML, U_NUM,  U_MEDIA, KC_LEFT, KC_RGHT,   SRCHSEL 
 
 #define LAYOUT_LAYER_NAVIGATION                                                                                  \
-    U_NA, _______________DEAD_HALF_ROW_______________,    _____________CLIPBOARD_KEYS_R______________, U_NU,     \
+    U_NA, _____________CLIPBOARD_KEYS_L______________,    _____________CLIPBOARD_KEYS_R______________, U_NU,     \
     U_NA, ______________HOME_ROW_GACS_L______________,    SELWORD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, U_NU,     \
     U_NA, _____________WINDOW_MANAGEMENT_____________,    JOINLN,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_CAPS,  \
     U_NA, _______________DEAD_HALF_ROW_______________,    KC_ENT,  KC_BSPC, KC_DEL,  U_DLFT,  U_DRGT,  U_NU     
