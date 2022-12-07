@@ -101,7 +101,7 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
 #define LAYOUT_LAYER_FUNCTION                                                                                    \
     RESET, _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
     U_NA,  ______________HOME_ROW_GACS_L______________,   KC_SLCK,  KC_F4,   KC_F5,   KC_F6,   KC_F11, U_NU,     \
-    U_NA,  ______________HOME_ROW_ALGR_L______________,   KC_PAUS,  KC_F1,   KC_F2,   KC_F3,   KC_F10, U_NU,     \
+    U_NA,  U_NU,    U_DLFT,  U_DSHW,  U_DRGT,  U_NU,      KC_PAUS,  KC_F1,   KC_F2,   KC_F3,   KC_F10, U_NU,     \
     U_NA,  _______________DEAD_HALF_ROW_______________,   SRCHSEL, U_NU,    KC_APP,  U_NU,    U_NU,   U_NU
 
 // Add Home Row mod to a layout.

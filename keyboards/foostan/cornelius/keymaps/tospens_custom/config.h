@@ -49,3 +49,4 @@
 #define U_SRGT SGUI(KC_RGHT)
 #define U_DRGT LCTL(LGUI(KC_RGHT))
 #define U_DLFT LCTL(LGUI(KC_LEFT))
+#define U_DSHW LGUI(KC_TAB)
