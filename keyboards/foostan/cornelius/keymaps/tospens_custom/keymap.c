@@ -31,7 +31,7 @@ enum custom_keycodes {
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
 #define ______________HOME_ROW_ALGR_L______________ U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA
-#define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
+#define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI
 #define ______________HOME_ROW_ALGR_R______________ U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA
 #define _____________CLIPBOARD_KEYS_L______________ U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO
 #define _____________CLIPBOARD_KEYS_R______________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
@@ -96,7 +96,7 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
     U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,      KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC,  U_NU,    \
     U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,    U_NU,    \
     U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,      KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_QUES,  U_NU,    \
-    U_NU, U_NU,    U_NU,    U_NU,    U_NU,    KC_UNDS,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,     U_NU
+    U_NU, U_NU,    U_NU,    KC_LALT, KC_LCTL, KC_UNDS,    U_NU,    KC_RCTL, KC_RALT, U_NU,    U_NU,     U_NU
 
 #define LAYOUT_LAYER_FUNCTION                                                                                    \
     RESET, _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
