@@ -1,0 +1,6 @@
+{
+    "modules": [
+        "getreuer/sentence_case",
+        "getreuer/select_word"
+    ]
+}

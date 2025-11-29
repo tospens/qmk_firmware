@@ -13,20 +13,17 @@
 #define U_NA KC_NO // present but not available for use
 #define U_NU KC_NO // available but not used
 
-// default but used in macros
-#undef TAPPING_TERM
 #define TAPPING_TERM 180
 
 // Enable permissive hold for faster hold activation on mods.
 #define PERMISSIVE_HOLD
 
-// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+// Replace TAPPING_FORCE_HOLD with Flow Tap
+// #define FLOW_TAP_TERM 150
 
-// Auto Shift
-#define NO_AUTO_SHIFT_ALPHA
-#define AUTO_SHIFT_TIMEOUT TAPPING_TERM
-#define AUTO_SHIFT_NO_SETUP
+// Enable Chordal Hold - replaces Achordion for opposite-hands rule.
+// Tap-hold keys are settled as tapped when both keys are on the same hand.
+#define CHORDAL_HOLD
 
 // Recommended for heavy chording.
 #define QMK_KEYS_PER_SCAN 4

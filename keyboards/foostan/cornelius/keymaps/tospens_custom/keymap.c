@@ -1,16 +1,14 @@
 #include QMK_KEYBOARD_H
 
-#include "features/achordion.h"
-#include "features/caps_word.h"
-#include "features/select_word.h"
-
 enum custom_keycodes {
-    SELWORD = SAFE_RANGE,
-    UPDIR,
+    UPDIR = SAFE_RANGE,
     CBLCK,
     JOINLN,
-    SRCHSEL,
+    SRCHSEL
 };
+
+// Alias for community module keycodes.
+#define SNTCSE SENTENCE_CASE_TOGGLE
 
 // Left-hand thumb keys.
 #define U_FUN LT(FUN, KC_ESC)
@@ -37,36 +35,83 @@ enum custom_keycodes {
 #define _____________CLIPBOARD_KEYS_R______________ U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND
 #define _____________WINDOW_MANAGEMENT_____________ U_SLFT,  U_WLFT,  U_WNUP,  U_WRGT,  U_SRGT
 
-enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
+enum layers { BASE, MEDIA, NAV, SYM, NUM, FUN };
 
 // clang-format off
-// QWERTY layout (4 rows, 12 columns)
 /*
-    LAYOUT_LAYER_FUNCTION_LEFT
-    U_NU, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,    _______________DEAD_HALF_ROW_______________, RESET,    \
-    U_NU, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,    ______________HOME_ROW_GACS_R______________, U_NA,     \
-    U_NU, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS,    ______________HOME_ROW_ALGR_R______________, U_NA,     \
-    U_NU, U_NU,    U_NU,    KC_APP,  KC_SPC,  KC_TAB,     _______________DEAD_HALF_ROW_______________, U_NA
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ BASE LAYER (with Home Row Mods: GUI/ALT/CTL/SFT on ASDF/JKL;)                                                                   │
+├──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┤
+│   Tab    │    Q     │    W     │    E     │    R     │    T     │    Y     │    U     │    I     │    O     │    P     │    \     │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│   Esc    │    A     │    S     │    D     │    F     │    G     │    H     │    J     │    K     │    L     │    ;     │    '     │
+│          │  (GUI)   │  (Alt)   │  (Ctl)   │  (Sft)   │          │          │  (Sft)   │  (Ctl)   │  (Alt)   │  (GUI)   │          │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│  Shift   │    Z     │    X     │    C     │    V     │    B     │    N     │    M     │    ,     │    .     │    /     │  Shift   │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│   Ctl    │   Down   │    Up    │   FUN    │   NAV    │   SYM    │   SYM    │   NUM    │  MEDIA   │   Left   │  Right   │ SrchSel  │
+│          │          │          │  (Esc)   │  (Spc)   │  (Tab)   │  (Ent)   │  (Bsp)   │  (Del)   │          │          │          │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
 
-    LAYOUT_LAYER_MEDIA_RIGHT
-    U_NA, _______________DEAD_HALF_ROW_______________,    _______________DEAD_HALF_ROW_______________, U_NU,     \
-    U_NA, ______________HOME_ROW_GACS_L______________,    U_NU,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,     \
-    U_NA, ______________HOME_ROW_ALGR_L______________,    U_NU,    DT_PRNT, DT_DOWN, DT_UP,   U_NU,    U_NU,     \
-    U_NA, _______________DEAD_HALF_ROW_______________,    KC_MSTP, KC_MPLY, KC_MUTE, U_NU,    U_NU,    U_NU
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ NAV LAYER - Navigation & Window Management                                                                                   │
+├──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┤
+│    --    │   Undo   │   Cut    │   Copy   │  Paste   │   Redo   │   Redo   │  Paste   │   Copy   │   Cut    │   Undo   │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │   GUI    │   Alt    │   Ctl    │   Sft    │    --    │ SelWord  │   Left   │   Down   │    Up    │  Right   │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │ S+G+L    │  G+Left  │   G+Up   │  G+Rght  │ S+G+R    │ JoinLine │   Home   │  PgDown  │  PgUp    │   End    │   Caps   │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    --    │    --    │    --    │    --    │    --    │  Enter   │   Bsp    │   Del    │ DeskLft  │ DeskRgt  │    --    │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
 
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ MEDIA LAYER - Media Controls                                                                                                     │
+├──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┤
+│    --    │    --    │    --    │    --    │    --    │    --    │    --    │    --    │    --    │    --    │    --    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │   Prev   │  Vol+    │  Vol-    │   Next   │    --    │    --    │   Sft    │   Ctl    │   Alt    │   GUI    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    --    │    --    │    --    │    --    │    --    │    --    │    --    │    --    │  AltGr   │    --    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    --    │    --    │   Mute   │   Play   │   Stop   │    --    │    --    │    --    │    --    │    --    │    --    │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
 
-#define LAYOUT_LAYER_SYMBOLS_LEFT                                                                                \
-    U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,      _______________DEAD_HALF_ROW_______________, U_NA,     \
-    U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    ______________HOME_ROW_GACS_R______________, U_NA,     \
-    U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,      ______________HOME_ROW_ALGR_R______________, U_NA,     \
-    U_NU, U_NU,    U_NU,    U_NU,    U_NU,    KC_UNDS,    _______________DEAD_HALF_ROW_______________, U_NA
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ NUM LAYER - Number Pad                                                                                                           │
+├──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┤
+│    --    │    =     │    7     │    8     │    9     │    .     │    --    │    --    │    --    │    --    │    --    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    :     │    4     │    5     │    6     │    +     │    --    │   Sft    │   Ctl    │   Alt    │   GUI    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    /     │    1     │    2     │    3     │    *     │    --    │    --    │    --    │  AltGr   │    --    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    --    │    --    │   Bsp    │    0     │    -     │    --    │    --    │    --    │    --    │    --    │    --    │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
 
-#define LAYOUT_LAYER_SYMBOLS_RIGHT                                                                               \
-    U_NA, _______________DEAD_HALF_ROW_______________,    KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC,  U_NU,    \
-    U_NA, ______________HOME_ROW_GACS_L______________,    KC_UNDS, KC_PIPE, KC_LPRN, KC_RPRN, KC_AT,    U_NU,    \
-    U_NA, ______________HOME_ROW_ALGR_L______________,    KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_QUES,  U_NU,    \
-    U_NA, _______________DEAD_HALF_ROW_______________,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,     U_NU
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ SYM LAYER - Symbols & Special Characters                                                                                         │
+├──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┤
+│    --    │    '     │    <     │    >     │    "     │   ```    │    `     │    &     │    [     │    ]     │    %     │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    !     │    -     │    +     │    =     │    #     │    _     │    |     │    (     │    )     │    @     │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    ^     │    /     │    *     │    \     │   ../    │    ~     │    $     │    {     │    }     │    ?     │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    --    │    --    │   Alt    │   Ctl    │    _     │    --    │   Ctl    │   Alt    │    --    │    --    │    --    │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
 
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ FUN LAYER - Function Keys & System                                                                                               │
+├──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┤
+│  RESET   │    --    │    --    │    --    │    --    │    --    │  PrtScr  │    F7    │    F8    │    F9    │   F12    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │   GUI    │   Alt    │   Ctl    │   Sft    │    --    │  ScrLk   │    F4    │    F5    │    F6    │   F11    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    --    │ DeskLft  │ DeskShw  │ DeskRgt  │    --    │  Pause   │    F1    │    F2    │    F3    │   F10    │    --    │
+├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│    --    │    --    │    --    │    --    │    --    │    --    │ SrchSel  │ SentCase │   App    │    --    │    --    │    --    │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
 */
 #define LAYOUT_LAYER_BASE                                                                                        \
     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_BSLS, \
@@ -99,10 +144,10 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
     U_NU, U_NU,    U_NU,    KC_LALT, KC_LCTL, KC_UNDS,    U_NU,    KC_RCTL, KC_RALT, U_NU,    U_NU,     U_NU
 
 #define LAYOUT_LAYER_FUNCTION                                                                                    \
-    QK_BOOT, _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
-    U_NA,  ______________HOME_ROW_GACS_L______________,   KC_SCRL,  KC_F4,   KC_F5,   KC_F6,   KC_F11, U_NU,     \
-    U_NA,  U_NU,    U_DLFT,  U_DSHW,  U_DRGT,  U_NU,      KC_PAUS,  KC_F1,   KC_F2,   KC_F3,   KC_F10, U_NU,     \
-    U_NA,  _______________DEAD_HALF_ROW_______________,   SRCHSEL, U_NU,    KC_APP,  U_NU,    U_NU,   U_NU
+    QK_BOOT,    _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
+    U_NA,       ______________HOME_ROW_GACS_L______________,   KC_SCRL,  KC_F4,   KC_F5,   KC_F6,   KC_F11, U_NU,     \
+    U_NA,       U_NU,    U_DLFT,  U_DSHW,  U_DRGT,  U_NU,      KC_PAUS,  KC_F1,   KC_F2,   KC_F3,   KC_F10, U_NU,     \
+    U_NA,       _______________DEAD_HALF_ROW_______________,   SRCHSEL, SNTCSE,  KC_APP,  U_NU,    U_NU,   U_NU
 
 // Add Home Row mod to a layout.
 #define _HOME_ROW_MOD_GACS(                                                                           \
@@ -125,8 +170,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYM] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS),
   [FUN] = LAYOUT_wrapper(LAYOUT_LAYER_FUNCTION),
 };
-
-const uint32_t unicode_map[] PROGMEM = {};
 
 #ifdef COMBO_ENABLE
 enum combos {
@@ -161,7 +204,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     if (pressed) {
         switch (combo_index) {
             case CAPS_COMBO:
-                caps_word_set(true);
+                caps_word_on();  // QMK built-in caps word
                 break;
 
             case END_SENTENCE_COMBO:
@@ -173,66 +216,37 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 }
 #endif
 
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-    switch (tap_hold_keycode) {
-        case U_NAV:
-        case U_FUN:
-        case U_SYML:
-        case U_SYMR:
-            return 0; // Bypass Achordion for these keys.
-    }
+// Chordal Hold layout - defines handedness for the "opposite hands" rule.
+// 'L' = left hand, 'R' = right hand, '*' = thumb keys (exempt from rule)
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+    //   0    1    2    3    4    5    6    7    8    9   10   11
+    {'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R'},  // Row 0
+    {'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R'},  // Row 1
+    {'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R'},  // Row 2
+    {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},  // Row 3 (thumb/bottom row)
+};
 
-    return 800; // Otherwise use a timeout of 800 ms.
-}
-
-bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record, uint16_t other_keycode, keyrecord_t* other_record) {
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+    // Allow same-hand chords for specific key combinations
     switch (tap_hold_keycode) {
-        case RGUI_T(KC_SCLN): // SCLN + L.
-            if (other_keycode == LALT_T(KC_L)) {
+        case RGUI_T(KC_SCLN): // GUI (;) + L - for lock screen, etc.
+            if (other_keycode == LALT_T(KC_L) || other_keycode == KC_L) {
                 return true;
             }
             break;
-        case LCTL_T(KC_D):
+        case LCTL_T(KC_D): // D + W
             if (other_keycode == KC_W) {
                 return true;
             }
             break;
     }
 
-    // Also allow same-hand holds when the other key is in the rows below the
-    // alphas.
-    if (other_record->event.key.row >= 3) {
-        return true;
-    }
-
-    // Otherwise, follow the opposite hands rule.
-    return achordion_opposite_hands(tap_hold_record, other_record);
-}
-
-bool achordion_eager_mod(uint8_t mod) {
-    switch (mod) {
-        case MOD_LSFT:
-        case MOD_RSFT:
-        case MOD_LCTL:
-        case MOD_RCTL:
-            return true; // Eagerly apply Shift and Ctrl mods.
-
-        default:
-            return false;
-    }
+    // Use the default opposite hands rule based on chordal_hold_layout
+    return get_chordal_hold_default(tap_hold_record, other_record);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    if (!process_achordion(keycode, record)) {
-        return false;
-    }
-    if (!process_caps_word(keycode, record)) {
-        return false;
-    }
-    if (!process_select_word(keycode, record, SELWORD)) {
-        return false;
-    }
-
     if (record->event.pressed) {
         switch (keycode) {
             case UPDIR:
@@ -268,6 +282,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-void matrix_scan_user(void) {
-    achordion_task();
-}
+// matrix_scan_user no longer needed - chordal hold is handled by QMK core
