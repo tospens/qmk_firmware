@@ -59,7 +59,7 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
     U_NU, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, CBLCK,      _______________DEAD_HALF_ROW_______________, U_NA,     \
     U_NU, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    ______________HOME_ROW_GACS_R______________, U_NA,     \
     U_NU, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, UPDIR,      ______________HOME_ROW_ALGR_R______________, U_NA,     \
-    U_NU, U_NU,    U_NU,    U_NU,    U_NU,    KC_UNDS,    _______________DEAD_HALF_ROW_______________, U_NA    
+    U_NU, U_NU,    U_NU,    U_NU,    U_NU,    KC_UNDS,    _______________DEAD_HALF_ROW_______________, U_NA
 
 #define LAYOUT_LAYER_SYMBOLS_RIGHT                                                                               \
     U_NA, _______________DEAD_HALF_ROW_______________,    KC_GRV,  KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC,  U_NU,    \
@@ -72,13 +72,13 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_BSLS, \
     KC_ESC,   KC_A,    KC_S,    KC_D,    KC_F,   KC_G,     KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN,   KC_QUOT, \
     KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,     KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,   KC_RSFT, \
-    KC_LCTL,  KC_DOWN, KC_UP,   U_FUN,   U_NAV,  U_SYMR,   U_SYML, U_NUM,  U_MEDIA, KC_LEFT, KC_RGHT,   SRCHSEL 
+    KC_LCTL,  KC_DOWN, KC_UP,   U_FUN,   U_NAV,  U_SYMR,   U_SYML, U_NUM,  U_MEDIA, KC_LEFT, KC_RGHT,   SRCHSEL
 
 #define LAYOUT_LAYER_NAVIGATION                                                                                  \
     U_NA, _____________CLIPBOARD_KEYS_L______________,    _____________CLIPBOARD_KEYS_R______________, U_NU,     \
     U_NA, ______________HOME_ROW_GACS_L______________,    SELWORD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, U_NU,     \
     U_NA, _____________WINDOW_MANAGEMENT_____________,    JOINLN,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_CAPS,  \
-    U_NA, _______________DEAD_HALF_ROW_______________,    KC_ENT,  KC_BSPC, KC_DEL,  U_DLFT,  U_DRGT,  U_NU     
+    U_NA, _______________DEAD_HALF_ROW_______________,    KC_ENT,  KC_BSPC, KC_DEL,  U_DLFT,  U_DRGT,  U_NU
 
 #define LAYOUT_LAYER_MEDIA                                                                                       \
     U_NA, _______________DEAD_HALF_ROW_______________,    _______________DEAD_HALF_ROW_______________, U_NU,     \
@@ -99,8 +99,8 @@ enum layers { BASE, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
     U_NU, U_NU,    U_NU,    KC_LALT, KC_LCTL, KC_UNDS,    U_NU,    KC_RCTL, KC_RALT, U_NU,    U_NU,     U_NU
 
 #define LAYOUT_LAYER_FUNCTION                                                                                    \
-    RESET, _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
-    U_NA,  ______________HOME_ROW_GACS_L______________,   KC_SLCK,  KC_F4,   KC_F5,   KC_F6,   KC_F11, U_NU,     \
+    QK_BOOT, _______________DEAD_HALF_ROW_______________,   KC_PSCR,  KC_F7,   KC_F8,   KC_F9,   KC_F12, U_NU,     \
+    U_NA,  ______________HOME_ROW_GACS_L______________,   KC_SCRL,  KC_F4,   KC_F5,   KC_F6,   KC_F11, U_NU,     \
     U_NA,  U_NU,    U_DLFT,  U_DSHW,  U_DRGT,  U_NU,      KC_PAUS,  KC_F1,   KC_F2,   KC_F3,   KC_F10, U_NU,     \
     U_NA,  _______________DEAD_HALF_ROW_______________,   SRCHSEL, U_NU,    KC_APP,  U_NU,    U_NU,   U_NU
 
@@ -134,7 +134,7 @@ enum combos {
     MCOMM_AE,
     COMMDOT_OE,
     DOTSLSH_AA,
-    CAPS_COMBO, 
+    CAPS_COMBO,
     END_SENTENCE_COMBO,
     COMBO_LENGTH
 };
