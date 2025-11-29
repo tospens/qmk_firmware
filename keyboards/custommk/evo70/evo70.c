@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "evo70.h"
+#include "quantum.h"
 #include <stdbool.h>
 #include "matrix.h"
 #include OLED_FONT_H
@@ -93,8 +93,8 @@ uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, KC_VOLD, 0, 0, 0, 
     "Scroll Wheel"
 };
 
-uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, KC_VOLU, 0, 0, 0, 0, 0, KC_WH_U };
-uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, KC_VOLD, 0, 0, 0, 0, 0, KC_WH_D };
+uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, KC_VOLU, 0, 0, 0, 0, 0, MS_WHLU };
+uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, KC_VOLD, 0, 0, 0, 0, 0, MS_WHLD };
 #endif //bongocat
 
 uint8_t num_enc_modes = 10;
@@ -740,8 +740,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 
-void matrix_scan_kb(void) {
-    matrix_scan_user();
+void housekeeping_task_kb(void) {
     led_t current_led_state = host_keyboard_led_state();
     uint8_t current_layer = get_highest_layer(layer_state);
     if (startup_delay) {

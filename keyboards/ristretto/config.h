@@ -29,7 +29,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-<<<<<<< HEAD
 
 #define ENCODERS_PAD_A { D4 }
 #define ENCODERS_PAD_B { D6 }
@@ -38,5 +37,3 @@
 #ifdef COMBO_ENABLE
   #define COMBO_COUNT 4
 #endif
-=======
->>>>>>> e0a09ff728ce9079e6387cf1bdd7f0772cb71467
