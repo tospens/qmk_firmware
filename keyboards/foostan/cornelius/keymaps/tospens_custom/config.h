@@ -13,13 +13,14 @@
 #define U_NA KC_NO // present but not available for use
 #define U_NU KC_NO // available but not used
 
-#define TAPPING_TERM 180
+#define TAPPING_TERM 250
 
 // Enable permissive hold for faster hold activation on mods.
 #define PERMISSIVE_HOLD
 
-// Replace TAPPING_FORCE_HOLD with Flow Tap
-// #define FLOW_TAP_TERM 150
+//#define FLOW_TAP_TERM 150
+
+#define SPECULATIVE_HOLD
 
 // Enable Chordal Hold - replaces Achordion for opposite-hands rule.
 // Tap-hold keys are settled as tapped when both keys are on the same hand.
